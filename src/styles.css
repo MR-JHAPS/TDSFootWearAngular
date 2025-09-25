@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+.mat-form-field-appearance-fill.mat-focused .mat-form-field-infix {
+  background-color: #e8f5e9 !important; /* light green */
+}
+
+html, body {
+	height: 100%;
+	}
+body {
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	}
+
+
+:root{
+	--white : #ffffff;
+	--lighterShade : #F5F5F5;
+	--lightShade : #E8E8E8;
+
+	--orange: #EF6602;  
+    --mutedOrange: #FF8C42;
+	--lightOrange : #ffd9be;
+	
+    --lightBlue: #4B6F8C;
+
+	--uploadHover:  #faebdd;
+	--uploadBackground:   #fdf9f2; 
+    /* --primaryColor:#112C50; */
+	 --darkBlue: #112C50;
+    --textColor: #333333;
+
+	--deleteButton:#e53935;
+	--updateButton:#1e88e5;
+
+	/* Greennish */
+	/* --primaryColor:#344955;
+	--secondaryColor:#4A6572; */
+	/* --primaryColor:#232F34; */
+	
+	/* --orange:; */
+
+	/* --primaryColor:#113357; */
+	--primaryColor:#203657;
+	--secondaryColor: #365071;
+
+	--darkShade : #d3d3d3;
+	--transparentBlue : #043d7e64;
+
+
+	--materialPrimary :#3f51b5;
+	--materialPrimaryDark :#303f9f;
+	--materialPrimaryLight :#c5cae9;
+
+	--materialAccent : #ff4081;
+	--materialAccentDark : #f50057;
+	--materialAccentLight : #ff80ab;
+
+	--materialWarn : #f44336;
+	--materialWarnDark : #d32f2f;
+	--materialWarnLight : #ffcdd2;
+
+
+}

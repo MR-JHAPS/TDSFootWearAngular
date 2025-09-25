@@ -1,0 +1,13 @@
+<!-- <h2 mat-dialog-title>Delete Client</h2> -->
+<mat-dialog-content class="mat-typography">
+  <h2 >Confirm Delete ? </h2>
+
+  <p class="">
+    Once Deleted the client cannot be Restored.
+  </p>
+</mat-dialog-content >
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()" >No Thanks</button>
+  <button  mat-raised-button color="warn"  (click)="onDelete()" cdkFocusInitial >Delete</button>
+</mat-dialog-actions>

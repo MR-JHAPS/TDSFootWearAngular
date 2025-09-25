@@ -1,0 +1,48 @@
+<!-- This is the PAGINATION COMPONENT -->
+<div class="paginationContainer d-flex justify-content-center mt-5 ">
+    <nav aria-label="... ">
+        <ul class="pagination shadow">
+            <li class="page-item" >
+                <a class="page-link first" (click)="changingRelToUrl('first')">FirstPage</a>
+            </li>
+            
+           <span class="nextPrev">
+                <li class="page-item " >
+                    <a class="page-link prev" (click)="changingRelToUrl('prev')"> &laquo; </a>
+                </li>
+        
+                <li class="page-item" >
+                    <a class="page-link next" (click)="changingRelToUrl('next')">  &raquo; </a>
+                </li>
+            </span>
+
+            <li class="page-item" >
+                <a class="page-link last" (click)="changingRelToUrl('last')">Last</a>
+            </li>
+
+        </ul>
+    </nav>
+</div>
+
+
+<!-- This is for Selecting Number Of Client Contents Per Page -->
+<section class="outerContainer">
+    <div class="labelContainer">
+        <label for="contentNumber">Page-Size </label>
+    </div>
+
+    <div class="contentContainer">
+        <select class="shadow" id="contentNumber" [(ngModel)]="contentSizeSelf"
+        (change)="onContentSizeChange()">  
+        <!-- generateContentSize is a method that generates the value for content size. it return array of number. -->
+            @for (size of getcontentSize(); track size ) {
+            <option value={{size}} > {{size}} </option>
+            }
+        </select>
+    </div>
+
+</section>
+
+
+
+

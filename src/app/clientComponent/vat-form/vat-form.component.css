@@ -1,0 +1,126 @@
+/* :host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+} */
+
+
+main{
+    box-sizing: border-box;
+    padding: 1rem;
+    /* background-color: var(--lightBlue); */
+    min-height: 100svh;
+    background-color: var(--lighterShade);
+    
+  
+    
+}
+
+.formOuterContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin : auto;
+    margin-top: 10vh;
+    max-width: 80%;
+    min-height: 40svh;
+    
+    box-shadow: 0.5px 3px 13px rgb(216, 216, 216);
+    background-color: var(--white);
+}
+
+.info{
+    box-sizing: border-box;
+    /* background-color: aliceblue; */
+    background-color: var(--materialPrimary);
+    width: 100%;
+    padding: 1rem;
+    padding-bottom: 0rem;
+    color: var(--lighterShade);
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.info h1{
+
+    font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: 500;
+    letter-spacing: 1px;
+    /* font-weight: lighter; */
+    padding: 0px;
+}
+
+
+
+.formContainer{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 2rem;
+    width: 100%;
+}
+
+
+
+    .row1, .row2, .row3{
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .foom{
+            min-width: 50%;
+        }
+
+
+.buttons{
+    margin-top: 2rem;
+    width: 100%;
+    /* background-color: green; */
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+    .insert{
+        margin-right: 2rem;
+        background-color: var(--materialPrimary);
+    }
+
+    .reset{
+        color: var(--materialWarnDark);
+    }
+
+    @media(max-width : 1000px){
+         .row3{
+           display: grid;
+           grid-template-columns: 1fr 1fr ;
+           /* grid-template-areas: "amount vatTax total"; */
+           gap: 2rem;
+        }
+    }
+
+
+    @media(max-width : 850px){
+        .row1{
+         display: grid;
+         grid-template-columns: 1fr;
+         gap: 1rem;   
+        }
+
+        .row2{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem; 
+        }
+    }

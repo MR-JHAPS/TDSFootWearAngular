@@ -1,0 +1,32 @@
+.modalContainer{
+    border: none !important;
+    border-radius: 4px solid var(--lightShade) !important;
+    /* background-color: green !important;
+    opacity: 0.3; */
+}
+
+
+.header{
+    /* color: var(--lightShade); */
+    /* background-color: var(--mutedOrange); */
+    
+}
+.header h4{
+    letter-spacing: 0.5px;
+
+}
+
+.modalBody{
+    /* border: 4px solid var(--lightShade) !important; */
+}
+
+label{
+    color : var(--secondaryColor);
+}
+
+.placeHolder{
+    font-weight: 500;
+    font-size: small;
+    color: var(--darkBlue);
+    letter-spacing: 0.3px;
+}

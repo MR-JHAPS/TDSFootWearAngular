@@ -1,0 +1,89 @@
+    <div class="modalContainer modal-content">
+    
+        <div  class="header modal-header">
+            <h4 class="modal-title pull-left">Update Client Info</h4>
+            <button type="button" class=" btn-close close pull-right" aria-label="Close" (click)="_modalService.hide()">
+                <span aria-hidden="true" class="closeButton visually-hidden">&times;</span>
+            </button>
+        </div>
+    
+        <div class="modalBody modal-body">
+            
+            <section class="row g-3">
+                <div class="col ">
+                    <label class="form-label  ps-2" for="clientName">Client Name</label>
+                    <input type="text" class="placeHolder form-control" placeholder="Client Name" aria-label="Email" id="clientName"
+                    [(ngModel)]="clientRequest.foomName">
+                    
+                </div>
+                <div class="col">
+                    <label class="form-label ps-2" for="email">Pan Number</label>
+                    <input type="number" class="placeHolder form-control" placeholder="Current Password" aria-label="Current Password"
+                    [(ngModel)]="clientRequest.panNumber">
+                </div>
+            </section>
+            
+            <section class="row g-3 mt-4">
+                <div class="col">
+                    <label class="form-label ps-2" for="newPassword">Bill Number</label>
+                    <input  type="number" class="placeHolder form-control" placeholder="New Password" aria-label="New Password" id="newPassword"
+                    [(ngModel)]="clientRequest.billNumber">
+                </div>
+            </section>
+
+            <section class="row g-3 mt-2">
+                <div class="col">
+                    <label class="form-label ps-2" for="confirmPassword">Date</label>
+                    <input type="date" class="placeHolder form-control" placeholder="Confirm Password" aria-label="Confirm Password" id="confirmPassword"
+                    [(ngModel)]="clientRequest.date">
+                </div>
+            </section>
+
+            <section class="row g-3 mt-2">
+                <div class="col">
+                    <label class="form-label ps-2" for="confirmPassword"> Amount</label>
+                    <input type="number" class="placeHolder form-control" placeholder="Confirm Password" aria-label="Confirm Password" id="confirmPassword"
+                    [(ngModel)]="clientRequest.amount">
+                </div>
+            </section>
+
+            <section class="row g-3 mt-2">
+                <div class="col">
+                    <label class="form-label ps-2" for="confirmPassword">Vat/Tax</label>
+                    <input type="number" class="placeHolder form-control" placeholder="Confirm Password" aria-label="Confirm Password" id="confirmPassword"
+                    [(ngModel)]="clientRequest.vatTax">
+                </div>
+            </section>
+
+            <section class="row g-3 mt-2">
+                <div class="col">
+                    <label class="form-label ps-2" for="confirmPassword">Total</label>
+                    <input type="number" class="placeHolder form-control" placeholder="Confirm Password" aria-label="Confirm Password" id="confirmPassword"
+                    [(ngModel)]="clientRequest.total">
+                </div>
+            </section>
+
+
+
+
+
+            <section class="buttons row g-3 mt-3">
+                <div *ngIf="!isLoading" class="col ">
+                    <button class="button btn btn-success w-100" (click)="onUpdateClick()"> Update </button>  
+                </div>
+
+                <div *ngIf="isLoading" class="col ">
+                    <button  class="btn btn-success w-100" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                </div>
+
+                <div class="col">
+                    <button class="button btn btn-danger w-100" (click)="_modalService.hide()"> Cancel </button>
+                </div>
+            </section>
+
+        </div>
+    </div>
+  

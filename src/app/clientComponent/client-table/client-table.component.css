@@ -1,0 +1,180 @@
+
+.tableContainer{
+  margin-top: 5svh;
+  padding:1rem;
+  
+  /* min-height: 80svh; */
+}
+
+
+.title{
+  text-align: center;
+  padding: 1rem;
+  letter-spacing: 1px;
+  background-color: var(--materialPrimaryLight);
+  
+}
+
+h5{
+  font-weight: bold;
+  font-size: 22px;
+  color: var(--white);
+  margin: 0px;
+}
+
+
+.table{
+  /* min-height: 100svh; */
+}
+
+
+
+
+/* ISLOADING--- Spinner width. */
+/* .loader{
+  background-color: var(--white);
+}
+
+.spinner-border{
+  width: 3rem !important;
+  height: 3rem !important;
+  background-color: var(--white) !important;
+}
+
+.loadingMessage{
+  padding: 1rem;
+  font-size: 16px;
+  color: var(--darkBlue);
+} */
+
+
+
+
+
+
+/* ----------------TABLE----------------------------- */
+.clickable-row {
+    /* cursor: pointer; */
+    /* padding: auto !important; */
+  }
+
+.clickable-row:hover td {
+  background-color: var(--lighterShade) !important;
+}
+  
+
+
+
+th{
+  padding-top:1rem;
+  /* padding-left: 20px; */
+  padding: 1rem;
+  color: var(--materialPrimaryDark);
+  font-size: 15px;
+  letter-spacing: 0.4px;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: 500;
+  background-color: var(--materialPrimaryLight);
+}
+
+
+th:hover{
+  cursor: pointer;
+}
+
+td{
+  color:var(--materialPrimaryDark);
+  font-size: 14px;
+  border-bottom: 1px solid var(--materialPrimaryLight);
+  padding-left: 20px;
+  padding: 1rem;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+
+
+}
+
+
+
+/* ------------------------- Update button -----------------------------------------------*/
+  .updateButton{
+     padding:16px;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    border-radius: 50%;
+    background-color: var(--materialPrimary);  
+  }
+
+  .updateButton:hover{
+    transition-duration: 0.2s;
+     background-color: var(--materialPrimaryDark);
+  }
+
+/* ----------------------- Delete button --------------------------------------*/
+  .deleteButton{
+    padding:16px;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    border-radius: 50%;
+    background-color: var(--materialWarn);
+  }
+
+  .deleteButton:hover{
+    transition-duration: 0.2s;
+    /* box-shadow: 4px 2px 5px rgb(255, 125, 125); */
+    background-color: var(--materialWarnDark);
+  }
+
+
+
+
+  
+  @media(max-width: 900px){
+    main{
+      padding:0;
+      background-color: var(--lighterShade);
+    }
+
+    .sortIcon{
+      padding-left: 10px;
+      padding-right : 10px;
+    }
+        
+    th{
+      padding-top:1rem;
+      padding-left: 10px;
+      color: var(--materialPrimaryDark);
+      font-size: 13px;
+      letter-spacing: 0px;
+    }
+
+    th:hover{
+      cursor: pointer;
+    }
+
+    td{
+      color:var(--materialPrimaryDark);
+      font-size: 12px;
+      border-bottom: 1px solid var(--lightShade);
+      padding-left: 10px;
+
+    }
+
+
+
+  }
+
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+
+
+/* Flexbox for toolbar layout */
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  background-color: var(--white);
+}
+
+
+/* Left items container */
+.right-items {
+  display: flex;
+  gap: 8px; /* Space between buttons */
+}
+
+/* Spacer pushes menu to right */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Title styling (centered) */
+.title {
+  position : relative;
+  transform: translateX(10%);
+  /* color: rgb(63, 73, 76); */
+  color: var(--materialAccentDark);
+}
+
+.dashboardContents{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  /* background-color: green; */
+  min-width: min-content;
+}
+
+/* button.active{
+  background-color: var(--mutedOrange);
+  color: var(--white);
+}
+
+.tableButton{
+  background-color: var(--white);
+  color: var(--secondaryColor);
+}
+
+.formButton{
+  background-color: var(--white);
+  color: var(--secondaryColor);
+} */
+
+
+
+
+
+
+
+.subtext{
+  font-size: 12px;
+  color: var(--materialAccent)
+}

@@ -1,0 +1,120 @@
+  /* ---------------------------------------------------------Pagination------------------------------------------------------------------- */
+  .paginationContainer{
+    /* background-color: red; */
+    min-width: 20svw;
+  }
+  
+  
+  .pagination{
+    border:none !important;
+    /* background-color: green; */
+    /* min-width: 400px; */
+  }
+
+  .page-item>.page-link{
+    /* background-color: var(--orange); */
+    color: var(--lightShade);
+    cursor: pointer;
+    /* border: 1px solid var(--lightShade); */
+    border: none !important;
+    min-width: 10svw;
+    text-align: center;
+  }
+
+  .page-item>.page-link.first, .page-item>.page-link.last{
+    background-color: var(--updateButton);
+  }
+
+   /* .page-item>.page-link.first:hover, .page-item>.page-link.last :hover{
+    background-color: var(--lightShade);
+  } */
+
+/* .page-item>.page-link:hover .first,.last{
+    background-color: var(--lightShade);
+  } */
+
+
+  .page-item>.page-link.prev, .page-item>.page-link.next{
+    background-color: var(--updateButton);
+    border-radius: 0px !important;
+  }
+
+  .page-item>.page-link.next{
+    margin-right: 2px;
+  }
+
+  .page-item>.page-link.prev{
+    margin-left : 2px;
+    
+  }
+
+
+
+  .page-item>.page-link:active{
+    background-color: var(--mutedOrange) !important;
+  }
+
+
+  .page-item>.page-link:hover{
+    background-color: var(--lighterShade);
+    box-shadow: 1px 2px 12px var(--updateButton);
+    color: var(--darkBlue);
+  }
+  /* .page-item>.page-link:visited{
+    background-color: var(--mutedOrange) !important;
+    border:2px solid black !important;
+  } */
+
+  .nextPrev{
+    /* width:100px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 0px !important;
+  }
+
+   .page-item>.one {
+    background-color: var(--orange);
+    cursor: pointer;
+   }
+
+
+   /* -------------------------------------- Number Of Contents Per Page ---------------------------------------------------------*/
+   .outerContainer{
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+   }
+
+      .labelContainer{
+          text-align: center;
+          padding:0.3rem;
+      }
+
+      .labelContainer>label{
+        color: var(--darkBlue);
+      }
+
+      .contentContainer{
+        text-align: center;
+        padding:0.3rem;
+      }
+
+        .contentContainer>select{
+          text-align: center;
+          width: 100px;
+          height: 2rem;
+          border: none !important;
+          background-color: var(--white);
+        }
+
+        .contentContainer>select>option{
+          text-align: center !important;
+        }
+
+  
