@@ -1,4 +1,36 @@
 
+.features{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: coral;
+}
+
+  .searchContainer{
+    background-color: blue;
+  }
+
+  .sortContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: green;
+  }
+
+
+
+.searchBox{
+  display : flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
 .tableContainer{
   margin-top: 5svh;
   padding:1rem;

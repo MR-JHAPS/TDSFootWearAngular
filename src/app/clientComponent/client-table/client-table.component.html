@@ -5,6 +5,52 @@
     <!-- <div class="title">
        <h5> Client List </h5>
     </div> -->
+    <article class="features">
+            <div class="searchContainer">
+                <mat-form-field appearance="outline" id="row" class="searchBox">
+                            <mat-label>Search</mat-label>
+                            <div>
+                                <input  matInput #searchBar="matInput" type="text" placeholder="Eg : Name / Id" [(ngModel)]="searchQuery">
+                            </div>
+                            @if (searchBar.value.length>0 ) {
+                            <div>
+                                    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                                        <mat-icon>clear</mat-icon>    
+                                    </button>
+                                </div>
+                            }
+                    </mat-form-field>
+            </div>
+        
+            
+            <div class="sortContainer">
+                    <div class="sortByContainer">
+                        <mat-form-field >
+                            <mat-label >Sort By</mat-label>
+                            <mat-select [(value)]="selectedSortBy"  (selectionChange)="onSortClick(selectedSortBy, selectedSortDirection)">
+                                @for (sBy of sortBy; track sBy) {
+                                <mat-option  [value]="sBy.value" > {{sBy.key}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="sortDirectionContainer">
+                        <mat-form-field >
+                            <mat-label><mat-icon>arrow_upward</mat-icon>  <mat-icon>arrow_downward</mat-icon> Sort</mat-label>
+                            <mat-select [(value)]="selectedSortDirection" (selectionChange)="onSortClick(selectedSortBy, selectedSortDirection)">
+                                @for (direction of sortDirections; track direction) {
+                                <mat-option [value]="direction.value" >{{direction.key}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+            </div>    
+       
+
+    </article>
+
+
 
     <table class="table ">
 
