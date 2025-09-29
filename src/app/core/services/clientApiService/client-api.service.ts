@@ -57,6 +57,23 @@ export class ClientApiService {
   }
 
 
+  searchClient( searchQuery : string, pageNumber?: number, pageSize?: number,
+               sortBy?:string, direction?: string
+              ) : Observable<ApiResponseModelPaginated<ClientResponse>>{
+    const url = `${this.apiEndpoints.baseUrl}${this.apiEndpoints.searchClient}`;
+    let size = pageSize ? pageSize : 10;
+      let number = pageNumber ? pageNumber : 0;
+      let sortingBy = sortBy ? sortBy : "";
+      let sortDirection = direction ? direction : "";
+    const params = new HttpParams()
+    .set("query", searchQuery)
+    .set("size", size)
+    .set("page" , number)
+    .set("sortBy", sortingBy)
+    .set("direction", sortDirection)
+    return this.httpClient.get<ApiResponseModelPaginated<ClientResponse>>(url,{params});
+  }
+
 
 
 }

@@ -7,7 +7,8 @@ export const API_ENDPOINTS={
     updateClientById: (id :number) => `/client/${id}`,
     deleteClientById : (id :number) => `/client/${id}`,
     getClientById : (id :number) => `/client/${id}`,
-    insertNewClient : "/client/insert"
+    insertNewClient : "/client/insert",
+    searchClient : "/client/search"
 
 
 

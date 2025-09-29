@@ -1,32 +1,93 @@
+.notFound{
+  margin: auto; 
+  text-align: center;
+}
+  .notFound h3 {
+    color: var(--materialAccentDark);
+    font-size: large;
+    letter-spacing: 1px;
+  }
+
+
+
+
+
 
 .features{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  align-items: flex-start;
-  background-color: coral;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
 }
 
   .searchContainer{
-    background-color: blue;
-  }
-
-  .sortContainer{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    background-color: green;
+    /* max-width: 40%; */
+    flex: 1;
   }
 
+      .searchContainer  mat-form-field {
+        width: 60%;
+      }
+
+        .inputContainer{
+          display: flex;
+          justify-content: space-between;
+          box-sizing: border-box;
+        }
+
+            /* This is the searchBox clear button */
+            .inputContainer .clearIcon :hover{
+              cursor: pointer;
+              color: var(--materialWarnDark);
+            }
+
+         
+  .sortContainer{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    width:50%;
+
+    /* background-color: coral; */
+  }
+
+       .sortByContainer{
+        box-sizing: border-box;
+        
+        /* width: 30%; */
+        /* padding: 0px; */
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        width: 50%;
+        
+     
+        }
 
 
-.searchBox{
-  display : flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
+  
+
+    .sortDirectionContainer {
+      box-sizing: border-box;
+      width: 50%;
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+
+
+
 
 
 
@@ -59,25 +120,6 @@ h5{
   /* min-height: 100svh; */
 }
 
-
-
-
-/* ISLOADING--- Spinner width. */
-/* .loader{
-  background-color: var(--white);
-}
-
-.spinner-border{
-  width: 3rem !important;
-  height: 3rem !important;
-  background-color: var(--white) !important;
-}
-
-.loadingMessage{
-  padding: 1rem;
-  font-size: 16px;
-  color: var(--darkBlue);
-} */
 
 
 
@@ -168,6 +210,29 @@ td{
 
 
   
+  @media(max-width:800px){
+
+      .features{
+        display: grid !important;
+        grid-template-columns: 1fr;
+      }
+
+      .sortContainer{
+        display: grid !important;
+        grid-template-columns: 1fr;
+        
+      }
+
+        .sortDirectionContainer {
+          box-sizing: border-box;
+          display: flex;
+          justify-content: center;
+        }
+
+  }
+
+
+
   @media(max-width: 900px){
     main{
       padding:0;

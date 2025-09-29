@@ -11,17 +11,21 @@ import { ToastrService } from 'ngx-toastr';
 import { DeleteModalComponent } from '../../delete-modal/delete-modal.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import {FormsModule} from '@angular/forms';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { SortDirection } from '../../core/enum/sortDirection';
 import { SortBy } from '../../core/enum/sortBy';
 import { MatIcon,MatIconModule } from '@angular/material/icon';
+import {MatRadioModule} from '@angular/material/radio';
+import { CdkObserveContent } from "@angular/cdk/observers";
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 export interface dataModel{
   key : string;
   value : SortDirection | SortBy;
+  icon ?: string;
 }
 
 
@@ -29,7 +33,7 @@ export interface dataModel{
 @Component({
   selector: 'app-client-table',
   imports: [PaginationComponent, MatDialogModule, MatButtonModule,
-    FormsModule, MatInputModule, MatSelectModule, MatFormFieldModule, MatIcon],
+    FormsModule, MatInputModule, MatRadioModule, MatSelectModule, MatFormFieldModule, MatIcon, CdkObserveContent, ReactiveFormsModule],
   templateUrl: './client-table.component.html',
   styleUrl: './client-table.component.css'
 })
@@ -43,13 +47,14 @@ export class ClientTableComponent implements OnInit{
   bsModalRef ?: BsModalRef;
   readonly _dialog = inject(MatDialog);
   _toastrService = inject(ToastrService);
+  currentContentSize  : number = 10;
 
   searchQuery : string = "";
 
   selectedSortDirection : string | SortDirection = "";
   sortDirections : dataModel[] = [
-    {key : "ASCENDING" , value: SortDirection.ASCENDING },
-    {key : "DESCENDING" , value: SortDirection.DESCENDING }
+    {key : "ascending" , icon: "fa-solid fa-arrow-down-a-z", value: SortDirection.ASCENDING },
+    {key : "descending" ,icon: "fa-solid fa-arrow-up-z-a", value: SortDirection.DESCENDING }
   ];
 
   selectedSortBy : string | SortBy = "";
@@ -62,17 +67,58 @@ export class ClientTableComponent implements OnInit{
     {key: "Total" , value: SortBy.TOTAL }
   ]
 
+  searchControl = new FormControl('');
+  isClientFound : boolean = true;
+
+
+
   ngOnInit(): void {
       this.getAllClients();
+
+       this.searchControl.valueChanges.pipe(
+      debounceTime(2000),
+      distinctUntilChanged()
+    )
+    .subscribe( searchValue =>{
+      if(!searchValue || searchValue.trim()===""){
+        // this.getAllClients();
+        return;
+      }
+      console.log("search query is " + searchValue);
+      this.clientApiService.searchClient(searchValue! , 0 , this.currentContentSize, this.selectedSortBy, this.selectedSortDirection).subscribe({
+         next : (response : ApiResponseModelPaginated<ClientResponse>) => {
+              this.clientResponseList = response.data.content;
+              this.paginationLinks = response.data.links;
+              if(!this.clientResponseList || this.clientResponseList.length===0){
+                this.isClientFound = false;
+                console.log("client not found")
+              }
+              console.log(response);
+            },
+      error : (error) => console.log("Error Getting Searched Clients"),
+      complete : () => console.log("Searched Clients Obtained Successfully") 
+      });
+      console.log(searchValue! + this.currentContentSize + this.selectedSortBy +  this.selectedSortDirection);
+    })
   }
 
+
+  clearSearch() : void {
+    this.searchControl.reset();
+    this.getAllClients();
+  }
  
+
+
+
+
 /* -------------------API CALLS (Get ALL CLIENTS/ Delete Clients)------------------------ */
   getAllClients(pageNumber?:number, pageSize?: number,
                 sortBy?: string, direction?: string ) : void{
     this.clientApiService.getAllClients(pageNumber, pageSize, sortBy, direction).subscribe({
       next : (response : ApiResponseModelPaginated<ClientResponse>) => {
               this.clientResponseList = response.data.content;
+               this.isClientFound  = this.clientResponseList ? true  : false;
               this.paginationLinks = response.data.links
             },
       error : (error) => console.log("Error Getting All Clients"),
@@ -153,8 +199,13 @@ export class ClientTableComponent implements OnInit{
 
 
 /* -------------------PAGINTAION (Content Size)------------------------ */
+
+
+
+
   changeContentSize(contentSize : number): void{
     console.log("changing content size : " + contentSize);
+    this.currentContentSize  = contentSize;
     this.getAllClients(0, contentSize);
   }
 

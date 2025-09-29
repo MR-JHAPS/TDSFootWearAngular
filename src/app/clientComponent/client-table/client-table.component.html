@@ -7,25 +7,21 @@
     </div> -->
     <article class="features">
             <div class="searchContainer">
-                <mat-form-field appearance="outline" id="row" class="searchBox">
-                            <mat-label>Search</mat-label>
-                            <div>
-                                <input  matInput #searchBar="matInput" type="text" placeholder="Eg : Name / Id" [(ngModel)]="searchQuery">
-                            </div>
-                            @if (searchBar.value.length>0 ) {
-                            <div>
-                                    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-                                        <mat-icon>clear</mat-icon>    
-                                    </button>
+                    <mat-form-field appearance="outline" color="accent" id="row">
+                                <mat-label>Search Clients</mat-label>
+                                <div class="inputContainer">
+                                    <input  matInput #searchBar="matInput" [formControl]="searchControl"  type="text" placeholder="Eg : Name / Id" >
+                                    @if (searchBar.value.length>0 ) {
+                                            <mat-icon class="clearIcon" > <a (click)="clearSearch()">clear </a>  </mat-icon>       
+                                        }
                                 </div>
-                            }
                     </mat-form-field>
             </div>
         
             
             <div class="sortContainer">
                     <div class="sortByContainer">
-                        <mat-form-field >
+                        <mat-form-field appearance="outline" color="accent">
                             <mat-label >Sort By</mat-label>
                             <mat-select [(value)]="selectedSortBy"  (selectionChange)="onSortClick(selectedSortBy, selectedSortDirection)">
                                 @for (sBy of sortBy; track sBy) {
@@ -36,14 +32,19 @@
                     </div>
                     
                     <div class="sortDirectionContainer">
-                        <mat-form-field >
-                            <mat-label><mat-icon>arrow_upward</mat-icon>  <mat-icon>arrow_downward</mat-icon> Sort</mat-label>
-                            <mat-select [(value)]="selectedSortDirection" (selectionChange)="onSortClick(selectedSortBy, selectedSortDirection)">
+                            <!-- <label class="example-margin">Sort Order</label> -->
+                            <!-- <mat-label> Order <i class="fa-solid fa-sort"></i> : </mat-label> -->
+                            <mat-radio-group [(ngModel)]="selectedSortDirection" >
                                 @for (direction of sortDirections; track direction) {
-                                <mat-option [value]="direction.value" >{{direction.key}}</mat-option>
+                                    <mat-radio-button class="me-2" [value]="direction.value" (cdkObserveContent)="onSortClick(selectedSortBy, selectedSortDirection)">
+                                      
+                                       <span class="m-0"> {{direction.key}} </span> 
+                                        <i [class]="direction.icon"></i> 
+                                        <!-- <mat-icon  >{{direction.icon}} </mat-icon> {{direction.key}}   -->
+                                    </mat-radio-button>
                                 }
-                            </mat-select>
-                        </mat-form-field>
+                            </mat-radio-group>
+
                     </div>
             </div>    
        
@@ -71,33 +72,40 @@
             </tr>
         </thead>
 
-        <tbody>
-            @for (client of clientResponseList; track client.id) {
-                <tr class="clickable-row">
-                    <td >{{client.id}}</td>
-                    <td >{{client.foomName}}</td>
-                    <td >{{client.panNumber}}</td>
-                    <td >{{client.billNumber}}</td>
-                    <td >{{client.date}}</td>
-                    <td >{{client.amount}}</td>
-                    <td >{{client.vatTax}}</td>
-                    <td >{{client.total}}</td>
-                    <td class="text-center">
-                            <div class="d-flex gap-3 justify-content-start">
-                                <button class="updateButton" (click)="openUpdateModal(client.id); $event.stopPropagation()">
-                                <i class="fa-solid fa-pen" style="color: #ffffff;"></i>
-                                </button>
+        @if (isClientFound) {
+            <tbody>
+                @for (client of clientResponseList; track client.id) {
+                    <tr class="clickable-row">
+                        <td >{{client.id}}</td>
+                        <td >{{client.foomName}}</td>
+                        <td >{{client.panNumber}}</td>
+                        <td >{{client.billNumber}}</td>
+                        <td >{{client.date}}</td>
+                        <td >{{client.amount}}</td>
+                        <td >{{client.vatTax}}</td>
+                        <td >{{client.total}}</td>
+                        <td class="text-center">
+                                <div class="d-flex gap-3 justify-content-start">
+                                    <button class="updateButton" (click)="openUpdateModal(client.id); $event.stopPropagation()">
+                                    <i class="fa-solid fa-pen" style="color: #ffffff;"></i>
+                                    </button>
 
-                                <button class="deleteButton" (click)="openDeleteClientModal(client.id)">
-                                <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
-                                </button>
-                            </div> 
-                        </td>
-                </tr>
-            }
-        </tbody>
-
+                                    <button class="deleteButton" (click)="openDeleteClientModal(client.id)">
+                                    <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                                    </button>
+                                </div> 
+                            </td>
+                    </tr>
+                }<!-- ends for -->
+            </tbody>
+        }<!-- ends if -->
+        
     </table>
+    @if(!isClientFound){
+            <div class="notFound"> 
+                <h3>Client Not Found !!! </h3>                
+            </div>
+        }
 
 </section>
 
