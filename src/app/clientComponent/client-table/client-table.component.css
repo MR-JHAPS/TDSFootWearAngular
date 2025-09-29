@@ -1,3 +1,16 @@
+
+/* To remove the default mat-form-field vertical spacing in search and sort elements. */
+::ng-deep .sortFormField .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+::ng-deep .searchFormField .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+
+
+
+
 .notFound{
   margin: auto; 
   text-align: center;
@@ -10,7 +23,9 @@
 
 
 
-
+.download{
+  text-align: right;
+}
 
 
 .features{
@@ -24,18 +39,22 @@
 }
 
   .searchContainer{
-    display: flex;
+    box-sizing: border-box;
+    margin: auto;
+    /* display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
+    align-items: center; */
     /* max-width: 40%; */
     flex: 1;
   }
 
       .searchContainer  mat-form-field {
         width: 60%;
+        margin: auto;
       }
 
+      /* This div contains the input type and clear button */
         .inputContainer{
           display: flex;
           justify-content: space-between;
@@ -92,8 +111,9 @@
 
 
 
+
 .tableContainer{
-  margin-top: 5svh;
+  /* margin-top: 5svh; */
   padding:1rem;
   
   /* min-height: 80svh; */
@@ -143,6 +163,7 @@ th{
   padding-top:1rem;
   /* padding-left: 20px; */
   padding: 1rem;
+  /* color: var(--materialPrimaryDark); */
   color: var(--materialPrimaryDark);
   font-size: 15px;
   letter-spacing: 0.4px;
@@ -150,7 +171,8 @@ th{
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: 500;
-  background-color: var(--materialPrimaryLight);
+  /* background-color: var(--materialPrimaryLight); */
+  background-color: var(--lightShade);
 }
 
 

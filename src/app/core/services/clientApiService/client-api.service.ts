@@ -75,5 +75,11 @@ export class ClientApiService {
   }
 
 
+  downloadExcelFile(): Observable<Blob>{
+    const url = `${this.apiEndpoints.baseUrl}${this.apiEndpoints.downloadFile}`;
+    // const url = "http://localhost:8080/api/client/download/clients";
+    return this.httpClient.get<Blob>(url, {responseType:'blob' as 'json'} );
+  }
+
 
 }

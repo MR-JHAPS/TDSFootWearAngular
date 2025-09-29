@@ -108,7 +108,23 @@ export class ClientTableComponent implements OnInit{
     this.getAllClients();
   }
  
-
+  downloadExcelFile():void {
+    this.clientApiService.downloadExcelFile().subscribe({
+      next : (blob : Blob) => {
+        //creating link to download a file
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "tdsClients.xlsx";
+        a.click();
+        window.URL.revokeObjectURL(url);
+        console.log(blob)
+      },
+      error : (error)=>{
+        console.log("Error downloading the file");
+      }
+    })
+  }
 
 
 

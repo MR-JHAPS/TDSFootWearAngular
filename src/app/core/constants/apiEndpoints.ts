@@ -8,7 +8,8 @@ export const API_ENDPOINTS={
     deleteClientById : (id :number) => `/client/${id}`,
     getClientById : (id :number) => `/client/${id}`,
     insertNewClient : "/client/insert",
-    searchClient : "/client/search"
+    searchClient : "/client/search",
+    downloadFile : "/client/download/clients"
 
 
 
