@@ -31,7 +31,7 @@
 .features{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   gap: 1rem;
   padding: 0.5rem;
@@ -68,6 +68,8 @@
             }
 
          
+
+
   .sortContainer{
     box-sizing: border-box;
     display: flex;
@@ -76,22 +78,62 @@
     align-items: center;
     gap: 1rem;
     width:50%;
-
-    /* background-color: coral; */
   }
 
-       .sortByContainer{
-        box-sizing: border-box;
-        
-        /* width: 30%; */
-        /* padding: 0px; */
+    .sortHeader{
+      margin: 0px;
+      background-color:var(--materialPrimaryLight);
+      color: var(--white);
+      padding-left: 1rem;
+    }
+    
+      .sortByOptions{
+        font-size: small;
+      }
+
+      /***** FOR SORT ORDER / RADIO BUTTON *******/
+      /* IMPORTANT: Overriding Angular Material internal layout */
+      ::ng-deep .sortDirectionButton .mdc-form-field {
+        width: 100% !important;
+        margin: 0 !important;
+      }
+
+      ::ng-deep .sortDirectionButton .mdc-label {
+        flex-grow: 1; /* This pushes the label to fill the remaining width */
+        cursor: pointer;
+      }
+
+      .radioGroupWrapper{
+        padding: 0;
         display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
-        width: 50%;
-        
-     
+        flex-direction: column;
+      }
+
+      .sortDirectionButton{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 12px 16px; /* Adjust padding for a better hit area */
+        box-sizing: border-box;
+        transition: background-color 0.2s;
+      }
+
+      .sortDirectionButton:hover{
+          cursor: pointer;
+          /* background-color: var(--lightShade); */
+          background-color: rgba(0, 0, 0, 0.04);
+      }
+
+        .sortDirectionLabel{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
         }
+
+          
+
+          
 
 
   

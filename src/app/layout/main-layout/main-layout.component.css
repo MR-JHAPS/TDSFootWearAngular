@@ -1,3 +1,18 @@
 .tabContainer{
     background-color: green !important;
 }
+
+/* 1. Change the color of the INACTIVE tab label */
+/* .customClientTabs ::ng-deep  .mdc-tab__text-label {
+  color: var(--materialAccentDark) !important; 
+} */
+
+/* 1. Base color for all tabs */
+.customClientTabs ::ng-deep .mdc-tab__text-label {
+    color: var(--materialPrimary) !important;
+}
+
+/* 2. Active color (Stronger selector by combining class names) */
+.customClientTabs ::ng-deep .mat-mdc-tab-active .mdc-tab__text-label {
+  /* color: red !important; */
+}

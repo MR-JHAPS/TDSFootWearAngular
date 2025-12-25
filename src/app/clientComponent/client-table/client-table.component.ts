@@ -21,6 +21,8 @@ import { MatIcon,MatIconModule } from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import { CdkObserveContent } from "@angular/cdk/observers";
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { MatDivider } from "@angular/material/divider";
+import { MatTabHeader } from "@angular/material/tabs";
 
 export interface dataModel{
   key : string;
@@ -33,7 +35,7 @@ export interface dataModel{
 @Component({
   selector: 'app-client-table',
   imports: [PaginationComponent, MatDialogModule, MatButtonModule,
-    FormsModule, MatInputModule, MatRadioModule, MatSelectModule, MatFormFieldModule, MatIcon, CdkObserveContent, ReactiveFormsModule],
+    FormsModule, MatInputModule, MatRadioModule, MatSelectModule, MatFormFieldModule, MatIcon, CdkObserveContent, ReactiveFormsModule, MatDivider, MatTabHeader],
   templateUrl: './client-table.component.html',
   styleUrl: './client-table.component.css'
 })
@@ -53,8 +55,8 @@ export class ClientTableComponent implements OnInit{
 
   selectedSortDirection : string | SortDirection = SortDirection.ASCENDING;
   sortDirections : dataModel[] = [
-    {key : "ascending" , icon: "fa-solid fa-arrow-down-a-z", value: SortDirection.ASCENDING },
-    {key : "descending" ,icon: "fa-solid fa-arrow-up-z-a", value: SortDirection.DESCENDING }
+    {key : "Ascending" , icon: "fa-solid fa-arrow-down-a-z", value: SortDirection.ASCENDING },
+    {key : "Descending" ,icon: "fa-solid fa-arrow-up-z-a", value: SortDirection.DESCENDING }
   ];
 
   selectedSortBy : string | SortBy = SortBy.ID;

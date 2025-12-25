@@ -9,6 +9,14 @@ mat-toolbar {
   background-color: var(--white);
 }
 
+.headerContainer{
+  background-color: green;
+}
+
+.logo{
+  width: 100px;
+  height: 80px;
+}
 
 /* Left items container */
 .right-items {
