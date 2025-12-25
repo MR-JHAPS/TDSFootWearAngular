@@ -9,10 +9,33 @@
 
 /* 1. Base color for all tabs */
 .customClientTabs ::ng-deep .mdc-tab__text-label {
-    color: var(--materialPrimary) !important;
+    color: var(--materialPrimaryDark) !important;
+    font-weight: 400;
+    font-size: medium;
+    /* font-family: 'Times New Roman', Times, serif */
+}
+
+/* Target the underline content specifically */
+.customClientTabs ::ng-deep .mdc-tab-indicator .mdc-tab-indicator__content--underline {
+  border-color: var(--mutedOrange) !important;
+  border-width: 2px; /* Optional: Adjust thickness if you want it bolder */
 }
 
 /* 2. Active color (Stronger selector by combining class names) */
 .customClientTabs ::ng-deep .mat-mdc-tab-active .mdc-tab__text-label {
   /* color: red !important; */
+}
+
+
+/* Space between the icon and the text label */
+.tab-icon {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Ensure the label content aligns nicely */
+::ng-deep .mdc-tab__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

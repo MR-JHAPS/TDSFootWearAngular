@@ -20,9 +20,8 @@ import { SortBy } from '../../core/enum/sortBy';
 import { MatIcon,MatIconModule } from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import { CdkObserveContent } from "@angular/cdk/observers";
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { MatDivider } from "@angular/material/divider";
-import { MatTabHeader } from "@angular/material/tabs";
 
 export interface dataModel{
   key : string;
@@ -35,7 +34,7 @@ export interface dataModel{
 @Component({
   selector: 'app-client-table',
   imports: [PaginationComponent, MatDialogModule, MatButtonModule,
-    FormsModule, MatInputModule, MatRadioModule, MatSelectModule, MatFormFieldModule, MatIcon, CdkObserveContent, ReactiveFormsModule, MatDivider, MatTabHeader],
+    FormsModule, MatInputModule, MatRadioModule, MatSelectModule, MatFormFieldModule, MatIcon, CdkObserveContent, ReactiveFormsModule, MatDivider],
   templateUrl: './client-table.component.html',
   styleUrl: './client-table.component.css'
 })
@@ -44,6 +43,8 @@ export class ClientTableComponent implements OnInit{
   clientApiService = inject(ClientApiService);
   clientResponseList!: Array<ClientResponse>;
   paginationLinks !: Array<ApiPaginationLinks>;
+
+  private searchSubscription?: Subscription;
 
   _modalService = inject(BsModalService);
   bsModalRef ?: BsModalRef;
@@ -55,8 +56,8 @@ export class ClientTableComponent implements OnInit{
 
   selectedSortDirection : string | SortDirection = SortDirection.ASCENDING;
   sortDirections : dataModel[] = [
-    {key : "Ascending" , icon: "fa-solid fa-arrow-down-a-z", value: SortDirection.ASCENDING },
-    {key : "Descending" ,icon: "fa-solid fa-arrow-up-z-a", value: SortDirection.DESCENDING }
+    {key : "ascending" , icon: "fa-solid fa-arrow-down-a-z", value: SortDirection.ASCENDING },
+    {key : "descending" ,icon: "fa-solid fa-arrow-up-z-a", value: SortDirection.DESCENDING }
   ];
 
   selectedSortBy : string | SortBy = SortBy.ID;
@@ -82,23 +83,31 @@ export class ClientTableComponent implements OnInit{
       distinctUntilChanged()
     )
     .subscribe( searchValue =>{
+
+      // 1. If a previous search is still running, CANCEL it
+      if (this.searchSubscription) {
+        this.searchSubscription.unsubscribe();
+      }
+      
       if(!searchValue || searchValue.trim()===""){
         this.getAllClients();
         return;
       }
       console.log("search query is " + searchValue);
-      this.clientApiService.searchClient(searchValue! , 0 , this.currentContentSize, this.selectedSortBy, this.selectedSortDirection).subscribe({
-         next : (response : ApiResponseModelPaginated<ClientResponse>) => {
-              this.clientResponseList = response.data.content;
-              this.paginationLinks = response.data.links;
-              if(!this.clientResponseList || this.clientResponseList.length===0){
-                this.isClientFound = false;
-                console.log("client not found")
-              }
-              console.log(response);
-            },
-      error : (error) => console.log("Error Getting Searched Clients"),
-      complete : () => console.log("Searched Clients Obtained Successfully") 
+      this.searchSubscription = this.clientApiService.searchClient(searchValue! , 0 , this.currentContentSize, this.selectedSortBy, this.selectedSortDirection).subscribe({
+        next : (response : ApiResponseModelPaginated<ClientResponse>) => {
+            this.clientResponseList = response.data.content;
+            this.paginationLinks = response.data.links;
+            
+              this.isClientFound = !!(this.clientResponseList && this.clientResponseList.length>0);
+              console.log("client not found")
+            
+            console.log(response);
+          },
+        error : (error) => {
+          console.log("Error Search", error);
+          this.isClientFound = false;
+          }
       });
       console.log(searchValue! + this.currentContentSize + this.selectedSortBy +  this.selectedSortDirection);
     })

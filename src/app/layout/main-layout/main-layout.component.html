@@ -1,9 +1,17 @@
 <mat-tab-group #tabContainer class="customClientTabs" >
-    <mat-tab label="Client Table" > 
+    <mat-tab > 
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">table_chart</mat-icon>
+            <span>Client Table</span>
+        </ng-template>
         <app-client-table #clientTableTab></app-client-table>
     </mat-tab>
 
-  <mat-tab label="Insert New Client"> 
+  <mat-tab> 
+     <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">add_circle</mat-icon>
+            <span>Insert New Client</span>
+      </ng-template>
     <app-vat-form
     (isClientInsertedEmitter)="afterClientInserted($event)"
     >

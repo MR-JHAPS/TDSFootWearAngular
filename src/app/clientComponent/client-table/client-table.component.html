@@ -5,12 +5,22 @@
         <button mat-raised-button color="primary" (click)="downloadExcelFile()"> Download Excel File</button>
     </section> -->
 
-    
+
     <!-- <div class="title">
        <h5> Client List </h5>
     </div> -->
     <article class="features">
-            <div class="searchContainer">
+
+        <div class="leftContainer">
+           
+
+            <div class="download">
+                <button mat-raised-button color="primary" (click)="downloadExcelFile()"> Download Excel File</button>
+            </div>
+        </div>
+            
+        <div class="rightContainer">
+             <div class="searchContainer">
                     <mat-form-field appearance="outline" color="accent" id="row" class="searchFormField">
                                 <mat-label>
                                     <mat-icon >
@@ -26,41 +36,36 @@
                                 </div>
                     </mat-form-field>
             </div>
-        
-            
+
             <div class="sortContainer">
-                        <mat-form-field class="sortFormField" appearance="outline" color="accent">
-                            <mat-label >Sort</mat-label>
-                            <mat-select [(value)]="selectedSortBy"  (selectionChange)="onSortClick(selectedSortBy, selectedSortDirection)">
-                               <h3 class="sortHeader">Sort By</h3>
-                                @for (sBy of sortBy; track sBy) {
-                                    <mat-option class="sortByOptions" [value]="sBy.value" > {{sBy.key}}</mat-option>
-                                }
+                    <mat-form-field class="sortFormField" appearance="outline" color="accent">
+                        <mat-label >Sort</mat-label>
+                        <mat-select [(value)]="selectedSortBy"  (selectionChange)="onSortClick(selectedSortBy, selectedSortDirection)">
+                            <h3 class="sortHeader">Sort By</h3>
+                            @for (sBy of sortBy; track sBy) {
+                                <mat-option class="sortByOptions" [value]="sBy.value" > {{sBy.key}}</mat-option>
+                            }
 
-                                <mat-divider ></mat-divider>
+                            <mat-divider ></mat-divider>
 
-                                <h3 class="sortHeader">Sort Order</h3>
-                                <div class="radioGroupWrapper" (click)="$event.stopPropagation()">
-                                    <mat-radio-group [(ngModel)]="selectedSortDirection" >
-                                            @for (direction of sortDirections; track direction) {
-                                                <!-- <mat-radio-button  class="sortDirectionButton" [value]="direction.value" (change)="onSortClick(selectedSortBy, selectedSortDirection)"> -->
-                                                <mat-radio-button  class="sortDirectionButton" [value]="direction.value" (click)="selectedSortDirection = direction.value; onSortClick(selectedSortBy, selectedSortDirection)">
-                                                    <div class="sortDirectionLabel"> 
-                                                        {{direction.key}} <i [class]="direction.icon"></i>
-                                                    </div> 
-                                                </mat-radio-button>
-                                            }
-                                    </mat-radio-group>
-                                </div><!-- ends Wrapper -->
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    
-                   <section class="download">
-        <button mat-raised-button color="primary" (click)="downloadExcelFile()"> Download Excel File</button>
-    </section>
-       
-
+                            <h3 class="sortHeader">Sort Order</h3>
+                            <div class="radioGroupWrapper" (click)="$event.stopPropagation()">
+                                <mat-radio-group [(ngModel)]="selectedSortDirection" >
+                                        @for (direction of sortDirections; track direction) {
+                                            <!-- <mat-radio-button  class="sortDirectionButton" [value]="direction.value" (change)="onSortClick(selectedSortBy, selectedSortDirection)"> -->
+                                            <mat-radio-button  class="sortDirectionButton" [value]="direction.value" (click)="selectedSortDirection = direction.value; onSortClick(selectedSortBy, selectedSortDirection)">
+                                                <div class="sortDirectionLabel"> 
+                                                    {{direction.key}} <i [class]="direction.icon"></i>
+                                                </div> 
+                                            </mat-radio-button>
+                                        }
+                                </mat-radio-group>
+                            </div><!-- ends Wrapper -->
+                        </mat-select>
+                    </mat-form-field>
+            </div>
+        </div>
+        
     </article>
 
 

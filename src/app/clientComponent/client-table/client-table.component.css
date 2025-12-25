@@ -31,26 +31,30 @@
 .features{
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  /* gap: 1rem; */
   padding: 0.5rem;
   box-sizing: border-box;
+  padding-top: 2rem;
 }
+
+  .rightContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+
+
 
   .searchContainer{
     box-sizing: border-box;
-    margin: auto;
-    /* display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center; */
-    /* max-width: 40%; */
-    flex: 1;
+    margin: auto;   
   }
 
       .searchContainer  mat-form-field {
-        width: 60%;
+        width: 100%;
         margin: auto;
       }
 
@@ -77,7 +81,7 @@
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
-    width:50%;
+    width:40%;
   }
 
     .sortHeader{
@@ -148,17 +152,8 @@
 
 
 
-
-
-
-
-
-
 .tableContainer{
-  /* margin-top: 5svh; */
   padding:1rem;
-  
-  /* min-height: 80svh; */
 }
 
 
@@ -167,7 +162,6 @@
   padding: 1rem;
   letter-spacing: 1px;
   background-color: var(--materialPrimaryLight);
-  
 }
 
 h5{
@@ -178,28 +172,14 @@ h5{
 }
 
 
-.table{
-  /* min-height: 100svh; */
-}
-
-
-
-
-
-
 
 /* ----------------TABLE----------------------------- */
 .clickable-row {
-    /* cursor: pointer; */
-    /* padding: auto !important; */
   }
 
 .clickable-row:hover td {
   background-color: var(--lighterShade) !important;
 }
-  
-
-
 
 th{
   padding-top:1rem;
@@ -278,20 +258,37 @@ td{
 
       .features{
         display: grid !important;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
       }
 
-      .sortContainer{
+      .leftContainer{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+
+      }
+
+      .rightContainer{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      /* .sortContainer{
         display: grid !important;
         grid-template-columns: 1fr;
         
+      } */
+
+      .searchContainer{
+
       }
 
-        .sortDirectionContainer {
-          box-sizing: border-box;
-          display: flex;
-          justify-content: center;
-        }
+      .sortContainer{
+        margin: auto;
+        width: fit-content;
+      }
 
   }
 
