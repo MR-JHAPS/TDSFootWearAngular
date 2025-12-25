@@ -78,7 +78,7 @@ export class ClientTableComponent implements OnInit{
       this.getAllClients();
 
        this.searchControl.valueChanges.pipe(
-      debounceTime(2000),
+      debounceTime(500),
       distinctUntilChanged()
     )
     .subscribe( searchValue =>{

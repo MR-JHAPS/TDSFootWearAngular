@@ -1,74 +1,44 @@
 
+mat-toolbar{
+  /* background-color: green; */
+  /* padding: 12px 16px !important; */
+}
+
 
 /* Flexbox for toolbar layout */
-mat-toolbar {
+.headerContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  padding: 0 16px;
+  /* padding: 20px; */
+  overflow: hidden;
+  
   background-color: var(--white);
 }
 
 .headerContainer{
-  background-color: green;
+  /* background-color: green; */
+}
+
+.leftContainer{
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
 }
 
 .logo{
-  width: 100px;
-  height: 80px;
+  width: 80px;
+  height: 60px;
+  
 }
 
-/* Left items container */
-.right-items {
+.title{
   display: flex;
-  gap: 8px; /* Space between buttons */
-}
-
-/* Spacer pushes menu to right */
-.spacer {
-  flex: 1 1 auto;
-}
-
-/* Title styling (centered) */
-.title {
-  position : relative;
-  transform: translateX(10%);
-  /* color: rgb(63, 73, 76); */
-  color: var(--materialAccentDark);
-}
-
-.dashboardContents{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
-
-  /* background-color: green; */
-  min-width: min-content;
+  padding-left: 10px ;
+  color: var(--orange);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-/* button.active{
-  background-color: var(--mutedOrange);
-  color: var(--white);
-}
-
-.tableButton{
-  background-color: var(--white);
-  color: var(--secondaryColor);
-}
-
-.formButton{
-  background-color: var(--white);
-  color: var(--secondaryColor);
-} */
-
-
-
-
-
-
-
-.subtext{
-  font-size: 12px;
-  color: var(--materialAccent)
-}
