@@ -51,13 +51,13 @@ export class ClientTableComponent implements OnInit{
 
   searchQuery : string = "";
 
-  selectedSortDirection : string | SortDirection = "";
+  selectedSortDirection : string | SortDirection = SortDirection.ASCENDING;
   sortDirections : dataModel[] = [
     {key : "ascending" , icon: "fa-solid fa-arrow-down-a-z", value: SortDirection.ASCENDING },
     {key : "descending" ,icon: "fa-solid fa-arrow-up-z-a", value: SortDirection.DESCENDING }
   ];
 
-  selectedSortBy : string | SortBy = "";
+  selectedSortBy : string | SortBy = SortBy.ID;
   sortBy : dataModel[] = [
     {key: "ID" , value: SortBy.ID },
     {key: "Client Name" , value: SortBy.CLIENTNAME },
@@ -81,7 +81,7 @@ export class ClientTableComponent implements OnInit{
     )
     .subscribe( searchValue =>{
       if(!searchValue || searchValue.trim()===""){
-        // this.getAllClients();
+        this.getAllClients();
         return;
       }
       console.log("search query is " + searchValue);

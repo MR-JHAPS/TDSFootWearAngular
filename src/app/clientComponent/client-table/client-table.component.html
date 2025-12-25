@@ -10,7 +10,12 @@
     <article class="features">
             <div class="searchContainer">
                     <mat-form-field appearance="outline" color="accent" id="row" class="searchFormField">
-                                <mat-label>Search Clients</mat-label>
+                                <mat-label>
+                                    <mat-icon >
+                                        search
+                                    </mat-icon>
+                                    Search Clients
+                                </mat-label>
                                 <div class="inputContainer">
                                     <input  matInput #searchBar="matInput" [formControl]="searchControl"  type="text" placeholder="Eg : Name / Id" >
                                     @if (searchBar.value.length>0 ) {
