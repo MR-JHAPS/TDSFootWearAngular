@@ -43,9 +43,9 @@ main{
     letter-spacing: 1px;
 }
 
-.info h1{
+.info h2{
 
-    font-family: "Roboto", sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: 500;
@@ -64,6 +64,7 @@ main{
     align-items: center;
 
     padding: 2rem;
+    padding-top: 4rem;
     width: 100%;
 }
 
@@ -80,7 +81,12 @@ main{
         .foom{
             min-width: 50%;
         }
-
+    ::ng-deep .mat-mdc-form-field .mdc-text-field--outlined .mdc-floating-label {
+    /* color: green !important; */
+    font-size: small;
+    letter-spacing: 0.5px;
+    /* color: var(--primaryColor); */
+}
 
 .buttons{
     margin-top: 2rem;

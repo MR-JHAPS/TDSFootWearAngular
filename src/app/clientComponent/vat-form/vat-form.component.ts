@@ -44,6 +44,14 @@ export class VatFormComponent {
   // value = new Value();
 
 
+  calculateTotal():void{
+    let total = 0;
+    let amount = Number(this.clientRequest.amount);
+    let vat = Number(this.clientRequest.vatTax);
+    total = amount + vat;
+    this.clientRequest.total = total.toString();
+  }
+
 
 
   insertNewClient(){

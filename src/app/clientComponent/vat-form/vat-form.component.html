@@ -3,7 +3,9 @@
 
         <div class="info">
             
-            <h1>Insert Client Form</h1>
+            <h2>
+                <i class="fa-solid fa-plus me-1"></i>
+                 Insert Client Form </h2>
         </div>
 
         <div class="formContainer">
@@ -29,7 +31,7 @@
 
                 <mat-form-field appearance="outline" id="row" class="date">
                         <mat-label>DATE</mat-label>
-                        <input matInput #date="matInput" type="date" placeholder="Eg : 2081/02/21">
+                        <input matInput #date="matInput" type="date" placeholder="Eg : 2081/02/21" >
                 </mat-form-field>
             </section>
 
@@ -40,17 +42,17 @@
                 
                 <mat-form-field  appearance="outline" id="amount">
                         <mat-label>AMOUNT</mat-label>
-                        <input matInput #amount="matInput" type="text" placeholder="Eg : 66636383" [(ngModel)]="clientRequest.amount">
+                        <input matInput #amount="matInput" type="text" placeholder="Eg : 66636383" [(ngModel)]="clientRequest.amount" (input)="calculateTotal()">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" id="vatTax">
                         <mat-label>VAT TAX</mat-label>
-                        <input matInput #vatTax="matInput" type="text" placeholder="Eg : 66636383" [(ngModel)]="clientRequest.vatTax">
+                        <input matInput #vatTax="matInput" type="text" placeholder="Eg : 66636383" [(ngModel)]="clientRequest.vatTax" (input)="calculateTotal()">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" id="total">
                         <mat-label>TOTAL</mat-label>
-                        <input matInput #total="matInput" type="text" placeholder="Eg : 66636383" [(ngModel)]="clientRequest.total">
+                        <input matInput #total="matInput" readonly="" type="text" placeholder="Eg : 66636383" [(ngModel)]="clientRequest.total">
                 </mat-form-field>
             </section>
 
