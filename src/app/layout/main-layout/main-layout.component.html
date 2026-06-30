@@ -2,9 +2,17 @@
     <mat-tab > 
         <ng-template mat-tab-label>
             <mat-icon class="tab-icon">table_chart</mat-icon>
-            <span>Client Table</span>
+            <span>Bikri Table</span>
         </ng-template>
         <app-client-table #clientTableTab></app-client-table>
+    </mat-tab>
+
+    <mat-tab > 
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">table_chart</mat-icon>
+            <span>Kharid Table</span>
+        </ng-template>
+        <app-kharid-table #kharidTableTab></app-kharid-table>
     </mat-tab>
 
   <mat-tab> 
@@ -14,6 +22,7 @@
       </ng-template>
     <app-vat-form
     (isClientInsertedEmitter)="afterClientInserted($event)"
+    (isKharidInsertedEmitter)="afterKharidInserted($event)"
     >
 
     </app-vat-form>

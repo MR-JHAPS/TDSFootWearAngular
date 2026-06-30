@@ -40,9 +40,45 @@ export interface dataModel{
 })
 export class ClientTableComponent implements OnInit{
 
+
+  /* clientResponseList: Array<ClientResponse> = [
+  {
+    id: 1,
+    foomName: "Everest Traders",
+    billNumber: 1001,
+    panNumber: 123456789,
+    vatTax: 13,
+    date: new Date("2026-06-01"),
+    amount: 1200,
+    total: 1356
+  },
+  {
+    id: 2,
+    foomName: "Himalayan Suppliers",
+    billNumber: 1002,
+    panNumber: 234567891,
+    vatTax: 13,
+    date: new Date("2026-06-02"),
+    amount: 2500,
+    total: 2825
+  },
+  {
+    id: 3,
+    foomName: "Kathmandu Electronics",
+    billNumber: 1003,
+    panNumber: 345678912,
+    vatTax: 13,
+    date: new Date("2026-06-03"),
+    amount: 5400,
+    total: 6102
+  }]; */
+
+
   clientApiService = inject(ClientApiService);
   clientResponseList!: Array<ClientResponse>;
   paginationLinks !: Array<ApiPaginationLinks>;
+
+  
 
   private searchSubscription?: Subscription;
 

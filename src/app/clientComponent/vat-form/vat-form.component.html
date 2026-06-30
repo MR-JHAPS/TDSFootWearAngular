@@ -8,8 +8,18 @@
                  Insert Client Form </h2>
         </div>
 
+         <!-- <label  for="option" ><div class="mb-2 mt-4">Select Kharid/Bikri</div></label>  -->
+            <select id="option" class="form-select form-select-lg mb-1 w-50 mt-4 bg-light"  
+                aria-label="Large select example" [(ngModel)]="selectedTableType">
+                <!-- <option selected>Select Kharid/Bikri</option> -->
+                <option [ngValue]="tableType.KHARID">Kharid</option>
+                <option [ngValue]="tableType.BIKRI">Bikri</option>
+            </select>
+
         <div class="formContainer">
-            
+           
+
+
             <section class="row1">
                 <mat-form-field  appearance="outline" class="foom">
                         <mat-label>CLIENT NAME</mat-label>
@@ -46,7 +56,7 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" id="vatTax">
-                        <mat-label>VAT TAX</mat-label>
+                        <mat-label>VAT TAX (13%)</mat-label>
                         <input matInput #vatTax="matInput" type="text" placeholder="Eg : 66636383" [(ngModel)]="clientRequest.vatTax" (input)="calculateTotal()">
                 </mat-form-field>
 

@@ -69,7 +69,7 @@ export class KharidTableComponent {
 
 
   ngOnInit(): void {
-      this.getAllClients();
+      this.getAllKharid();
 
        this.searchControl.valueChanges.pipe(
       debounceTime(500),
@@ -83,7 +83,7 @@ export class KharidTableComponent {
       }
       
       if(!searchValue || searchValue.trim()===""){
-        this.getAllClients();
+        this.getAllKharid();
         return;
       }
       console.log("search query is " + searchValue);
@@ -109,7 +109,7 @@ export class KharidTableComponent {
 
   clearSearch() : void {
     this.searchControl.reset();
-    this.getAllClients();
+    this.getAllKharid();
   }
  
   downloadExcelFile():void {
@@ -133,7 +133,7 @@ export class KharidTableComponent {
 
 
 /* -------------------API CALLS (Get ALL CLIENTS/ Delete Clients)------------------------ */
-  getAllClients(pageNumber?:number, pageSize?: number,
+  getAllKharid(pageNumber?:number, pageSize?: number,
                 sortBy?: string, direction?: string ) : void{
     this.kharidApiService.getAllKharids(pageNumber, pageSize, sortBy, direction).subscribe({
       next : (response : ApiResponseModelPaginated<ClientResponse>) => {
@@ -151,7 +151,7 @@ export class KharidTableComponent {
     this.kharidApiService.deleteKharidById(id).subscribe({
       next : (response : ApiResponseModel<string>) => {
               console.log("Deleting Client By ID.");
-              this.getAllClients();
+              this.getAllKharid();
             },
       error : (error) => console.log("Error Deleting  Client"),
       complete : () => console.log(" Client Deleted Successfully") 
@@ -161,7 +161,7 @@ export class KharidTableComponent {
 
   /* -------------------SORTING (SortBy/Direction)------------------------ */
   onSortClick(sortBy?: string, sortDirection ?: string) : void{
-    this.getAllClients(undefined, undefined, sortBy, sortDirection);
+    this.getAllKharid(undefined, undefined, sortBy, sortDirection);
   }
 
 
@@ -181,7 +181,7 @@ export class KharidTableComponent {
     this.bsModalRef.content.onClientUpdate.subscribe((updated:boolean)=>{
       if(updated){
         console.log("Client Updated, refreshing table ...");
-        this.getAllClients();
+        this.getAllKharid();
       }
     })
   }
@@ -226,7 +226,7 @@ export class KharidTableComponent {
   changeContentSize(contentSize : number): void{
     console.log("changing content size : " + contentSize);
     this.currentContentSize  = contentSize;
-    this.getAllClients(0, contentSize); //this is for kharids.
+    this.getAllKharid(0, contentSize); //this is for kharids.
   }
 
 }

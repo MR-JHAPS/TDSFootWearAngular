@@ -8,6 +8,8 @@ import { ClientApiService } from '../../core/services/clientApiService/client-ap
 import { ClientRequest } from '../../core/request/ClientRequest';
 import { ApiResponseModel } from '../../core/response/ApiResponseModel';
 import { ToastrService } from 'ngx-toastr';
+import { TableName } from '../../core/enum/tableName';
+import { KharidApiService } from '../../core/services/kharidApiService/kharid-api.service';
 
 
 // export class Value{
@@ -36,10 +38,14 @@ import { ToastrService } from 'ngx-toastr';
 
 export class VatFormComponent {
 
+  tableType  = TableName;
+   selectedTableType : TableName = TableName.BIKRI; 
   _clientApiService = inject(ClientApiService);
+  _kharidApiService = inject(KharidApiService);
   _toastrService = inject(ToastrService);
   clientRequest : ClientRequest = new ClientRequest("", "" , "", new Date(), "", "", "");
   @Output() isClientInsertedEmitter = new EventEmitter<boolean>(false);
+  @Output() isKharidInsertedEmitter = new EventEmitter<boolean>(false);
 
   // value = new Value();
 
@@ -47,7 +53,9 @@ export class VatFormComponent {
   calculateTotal():void{
     let total = 0;
     let amount = Number(this.clientRequest.amount);
-    let vat = Number(this.clientRequest.vatTax);
+    // let vat = Number(this.clientRequest.vatTax);
+    let vat = (13/100)*amount;
+    this.clientRequest.vatTax = vat;
     total = amount + vat;
     this.clientRequest.total = total.toString();
   }
@@ -55,21 +63,42 @@ export class VatFormComponent {
 
 
   insertNewClient(){
-    this._clientApiService.insertNewClient(this.clientRequest).subscribe({
-      next : (response : ApiResponseModel<string>) => {
-        console.log("Inserting clients.")
-        this._toastrService.success("Client Saved Successfully.");
-        this.isClientInsertedEmitter.emit(true);
-        this.resetclientRequest();
-      },
-      error : (error)=>{
-        console.log("Error inserting new Client");
-        this.isClientInsertedEmitter.emit(false);
-      },
-      complete : ()=> {
-        console.log("Client Saved Successfully.");
-      }
-    })
+    // let selectedTableType = this.tableType;
+    if(this.selectedTableType === this.tableType.BIKRI){
+        this._clientApiService.insertNewClient(this.clientRequest).subscribe({
+          next : (response : ApiResponseModel<string>) => {
+            console.log("Inserting clients.")
+            this._toastrService.success("Client Saved Successfully.");
+            this.isClientInsertedEmitter.emit(true);
+            this.resetclientRequest();
+          },
+          error : (error)=>{
+            console.log("Error inserting new Client");
+            this.isClientInsertedEmitter.emit(false);
+          },
+          complete : ()=> {
+            console.log("Client Saved Successfully.");
+          }
+      })
+    }else{
+      this._kharidApiService.insertNewKharid(this.clientRequest).subscribe({
+          next : (response : ApiResponseModel<string>) => {
+            console.log("Inserting Kharid.")
+            this._toastrService.success("Kharids Saved Successfully.");
+            this.isKharidInsertedEmitter.emit(true);
+            this.resetclientRequest();
+          },
+          error : (error)=>{
+            console.log("Error inserting new Kharid");
+            this.isKharidInsertedEmitter.emit(false);
+          },
+          complete : ()=> {
+            console.log("Kharid Saved Successfully.");
+          }
+      })
+    }
+
+   
   }
 
 
