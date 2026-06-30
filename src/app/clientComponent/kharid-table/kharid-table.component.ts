@@ -64,7 +64,7 @@ export class KharidTableComponent {
   ]
 
   searchControl = new FormControl('');
-  isClientFound : boolean = true;
+  isKharidClientFound : boolean = true;
 
 
 
@@ -92,14 +92,14 @@ export class KharidTableComponent {
             this.clientResponseList = response.data.content;
             this.paginationLinks = response.data.links;
             
-              this.isClientFound = !!(this.clientResponseList && this.clientResponseList.length>0);
-              console.log("client not found")
+              this.isKharidClientFound = !!(this.clientResponseList && this.clientResponseList.length>0);
+              console.log("Kharid client not found")
             
             console.log(response);
           },
         error : (error) => {
           console.log("Error Search", error);
-          this.isClientFound = false;
+          this.isKharidClientFound = false;
           }
       });
       console.log(searchValue! + this.currentContentSize + this.selectedSortBy +  this.selectedSortDirection);
@@ -138,7 +138,7 @@ export class KharidTableComponent {
     this.kharidApiService.getAllKharids(pageNumber, pageSize, sortBy, direction).subscribe({
       next : (response : ApiResponseModelPaginated<ClientResponse>) => {
               this.clientResponseList = response.data.content;
-               this.isClientFound  = this.clientResponseList ? true  : false;
+               this.isKharidClientFound  = this.clientResponseList ? true  : false;
               this.paginationLinks = response.data.links
             },
       error : (error) => console.log("Error Getting All Clients"),

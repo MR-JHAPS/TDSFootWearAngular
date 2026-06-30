@@ -15,7 +15,7 @@
            
 
             <div class="download">
-                <button mat-raised-button color="primary" (click)="downloadExcelFile()"> Download Excel File</button>
+                <button mat-raised-button color="primary" (click)="downloadExcelFile()"> <i class="fa-solid fa-download me-2"></i> Kharid Excel File</button>
             </div>
         </div>
             
@@ -90,7 +90,7 @@
             </tr>
         </thead>
 
-        @if (isClientFound) {
+        @if (isKharidClientFound) {
             <tbody>
                 @for (client of clientResponseList; track client.id) {
                     <tr class="clickable-row">
@@ -119,7 +119,7 @@
         }<!-- ends if -->
         
     </table>
-    @if(!isClientFound){
+    @if(!isKharidClientFound){
             <div class="notFound"> 
                 <h3>Client Not Found !!! </h3>                
             </div>

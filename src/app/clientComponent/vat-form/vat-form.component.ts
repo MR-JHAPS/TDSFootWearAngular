@@ -10,6 +10,7 @@ import { ApiResponseModel } from '../../core/response/ApiResponseModel';
 import { ToastrService } from 'ngx-toastr';
 import { TableName } from '../../core/enum/tableName';
 import { KharidApiService } from '../../core/services/kharidApiService/kharid-api.service';
+import { RtcNepaliDatePickerModule } from '@rishovt/angular-nepali-datepicker';
 
 
 // export class Value{
@@ -29,7 +30,7 @@ import { KharidApiService } from '../../core/services/kharidApiService/kharid-ap
 @Component({
   selector: 'app-vat-form',
   imports: [MatInputModule, MatIconModule, FormsModule, MatFormFieldModule,
-    MatButtonModule],
+    MatButtonModule, RtcNepaliDatePickerModule],
   templateUrl: './vat-form.component.html',
   styleUrl: './vat-form.component.css'
 })
@@ -48,6 +49,28 @@ export class VatFormComponent {
   @Output() isKharidInsertedEmitter = new EventEmitter<boolean>(false);
 
   // value = new Value();
+
+
+  selectedDate: any = '';
+
+  pickerId = 'bill-date-picker';
+
+  datepickerOptions = {
+  classes: 'form-control',
+  placeholder: 'Select Date',
+  dateFormat: 'YYYY-MM-DD',
+  closeOnDateSelect: true,
+  unicodeDate: false
+  };
+
+  onDateChange(event: any) {
+    this.selectedDate = event;
+    console.log(event);
+  }
+
+
+
+
 
 
   calculateTotal():void{

@@ -5,7 +5,7 @@
             
             <h2>
                 <i class="fa-solid fa-plus me-1"></i>
-                 Insert Client Form </h2>
+                 Add New Data </h2>
         </div>
 
          <!-- <label  for="option" ><div class="mb-2 mt-4">Select Kharid/Bikri</div></label>  -->
@@ -39,10 +39,17 @@
                         <input matInput #billNumber="matInput" type="text"  placeholder="Eg : 24" [(ngModel)]="clientRequest.billNumber">
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" id="row" class="date">
+                <!-- <mat-form-field appearance="outline" id="row" class="date">
                         <mat-label>DATE</mat-label>
                         <input matInput #date="matInput" type="date" placeholder="Eg : 2081/02/21" >
-                </mat-form-field>
+                </mat-form-field> -->
+
+                <rtc-nepali-datepicker                     
+                    [pickerId]="pickerId"
+                    [options]="datepickerOptions"
+                    [value]="selectedDate"
+                    (dateChange)="onDateChange($event)">
+                </rtc-nepali-datepicker>
             </section>
 
             
