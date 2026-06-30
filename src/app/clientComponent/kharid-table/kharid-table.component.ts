@@ -119,7 +119,7 @@ export class KharidTableComponent {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "tdsClients.xlsx";
+        a.download = "tdsClientsKharid.xlsx";
         a.click();
         window.URL.revokeObjectURL(url);
         console.log(blob)
