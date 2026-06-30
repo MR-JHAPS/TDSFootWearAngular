@@ -5,6 +5,10 @@
     opacity: 0.3; */
 }
 
+.nepali-date-picker {
+    z-index: 999999 !important;
+}
+
 
 .header{
     /* color: var(--lightShade); */

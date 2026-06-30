@@ -1,14 +1,11 @@
-export class ClientRequest{
+export class FormattedClientRequest{
 
 
     constructor(
         public foomName : string = "",
         public panNumber : number | string = 0,
         public billNumber :number | string = 0,
-        // public date : Date = new Date(),
-        public yearInBs : number | string =0,
-        public monthInBs : number | string = 0,
-        public dayInBs : number | string = 0,
+        public formattedDate :  string = "",
         public vatTax : number | string = 0,
         public amount : number | string = 0,
         public total : number | string = 0

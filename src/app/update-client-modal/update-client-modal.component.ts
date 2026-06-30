@@ -9,10 +9,13 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { RtcNepaliDatePickerModule } from '@rishovt/angular-nepali-datepicker';
+import { NepaliDateFormat } from '../core/request/NepaliDateFormat';
+
 
 @Component({
   selector: 'app-update-client-modal',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule, RtcNepaliDatePickerModule],
   templateUrl: './update-client-modal.component.html',
   styleUrl: './update-client-modal.component.css'
 })
@@ -42,7 +45,28 @@ export class UpdateClientModalComponent implements OnInit {
 
 
 
-
+  selectedDate: NepaliDateFormat = new NepaliDateFormat();
+  
+    pickerId = 'bill-date-update-picker';
+  
+    datepickerOptions = {
+    classes: 'form-control',
+    placeholder: 'Select Date',
+    dateFormat: 'YYYY-MM-DD',
+    closeOnDateSelect: true,
+    unicodeDate: false
+    };
+  
+    onDateChange(event: NepaliDateFormat) {
+      this.selectedDate = event;
+      this.clientRequest.yearInBs = this.selectedDate.year;
+      this.clientRequest.monthInBs = this.selectedDate.month;
+      this.clientRequest.dayInBs = this.selectedDate.day;
+      // console.log(event);
+      
+      console.log("This is the current selected Date " + this.clientRequest.monthInBs);
+    }
+  
 
 
 

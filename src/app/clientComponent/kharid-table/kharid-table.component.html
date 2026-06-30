@@ -92,13 +92,13 @@
 
         @if (isKharidClientFound) {
             <tbody>
-                @for (client of clientResponseList; track client.id) {
+                @for (client of formattedClientResponseList; track client.id) {
                     <tr class="clickable-row">
                         <td >{{client.id}}</td>
                         <td >{{client.foomName}}</td>
                         <td >{{client.panNumber}}</td>
                         <td >{{client.billNumber}}</td>
-                        <td >{{client.date}}</td>
+                        <td >{{client.formattedDate}}</td>
                         <td >{{client.amount}}</td>
                         <td >{{client.vatTax}}</td>
                         <td >{{client.total}}</td>

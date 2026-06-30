@@ -23,6 +23,8 @@ import { ApiResponseModelPaginated } from '../../core/response/apiResponseModelP
 import { ApiResponseModel } from '../../core/response/ApiResponseModel';
 import { UpdateClientModalComponent } from '../../update-client-modal/update-client-modal.component';
 import { DeleteModalComponent } from '../../delete-modal/delete-modal.component';
+import { DateFormattedResponseService } from '../../core/services/dateFormattedService/date-formatted-response.service';
+import { FormattedClientResponse } from '../../core/response/formattedClientResponse';
 
 @Component({
   selector: 'app-kharid-table',
@@ -34,6 +36,8 @@ import { DeleteModalComponent } from '../../delete-modal/delete-modal.component'
 export class KharidTableComponent {
 
   kharidApiService = inject(KharidApiService);
+  dateFormattedResponseService = inject(DateFormattedResponseService);
+  formattedClientResponseList !: Array<FormattedClientResponse>;
   clientResponseList!: Array<ClientResponse>;
   paginationLinks !: Array<ApiPaginationLinks>;
 
@@ -138,6 +142,8 @@ export class KharidTableComponent {
     this.kharidApiService.getAllKharids(pageNumber, pageSize, sortBy, direction).subscribe({
       next : (response : ApiResponseModelPaginated<ClientResponse>) => {
               this.clientResponseList = response.data.content;
+              this.formattedClientResponseList = this.dateFormattedResponseService.formatClientResponse(this.clientResponseList);
+
                this.isKharidClientFound  = this.clientResponseList ? true  : false;
               this.paginationLinks = response.data.links
             },

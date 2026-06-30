@@ -1,14 +1,11 @@
-export interface ClientResponse{
+export interface FormattedClientResponse{
 
     id : number;
     foomName : string;
     billNumber : number;
     panNumber : number;
     vatTax  : number;
-    // date : Date;
-    yearInBs : number,
-    monthInBs : number,
-    dayInBs : number,
+    formattedDate : string;
     amount : number;
     total : number;
 

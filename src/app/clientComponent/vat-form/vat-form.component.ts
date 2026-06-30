@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TableName } from '../../core/enum/tableName';
 import { KharidApiService } from '../../core/services/kharidApiService/kharid-api.service';
 import { RtcNepaliDatePickerModule } from '@rishovt/angular-nepali-datepicker';
+import { NepaliDateFormat } from '../../core/request/NepaliDateFormat';
 
 
 // export class Value{
@@ -44,14 +45,15 @@ export class VatFormComponent {
   _clientApiService = inject(ClientApiService);
   _kharidApiService = inject(KharidApiService);
   _toastrService = inject(ToastrService);
-  clientRequest : ClientRequest = new ClientRequest("", "" , "", new Date(), "", "", "");
+  // clientRequest : ClientRequest = new ClientRequest("", "" , "", new Date(), "", "", "");
+  clientRequest : ClientRequest = new ClientRequest("", "" , "", "" , "" , "", "", "", "");
   @Output() isClientInsertedEmitter = new EventEmitter<boolean>(false);
   @Output() isKharidInsertedEmitter = new EventEmitter<boolean>(false);
 
   // value = new Value();
 
 
-  selectedDate: any = '';
+  selectedDate: NepaliDateFormat = new NepaliDateFormat();
 
   pickerId = 'bill-date-picker';
 
@@ -63,9 +65,14 @@ export class VatFormComponent {
   unicodeDate: false
   };
 
-  onDateChange(event: any) {
+  onDateChange(event: NepaliDateFormat) {
     this.selectedDate = event;
-    console.log(event);
+    this.clientRequest.yearInBs = this.selectedDate.year;
+    this.clientRequest.monthInBs = this.selectedDate.month;
+    this.clientRequest.dayInBs = this.selectedDate.day;
+    // console.log(event);
+    
+    console.log("This is the current selected Date " + this.clientRequest.monthInBs);
   }
 
 
@@ -129,7 +136,8 @@ export class VatFormComponent {
 
   /* resets all the form data */
   resetclientRequest(){
-    this.clientRequest = new ClientRequest("", "" , "", new Date(), "", "", "");
+    // this.clientRequest = new ClientRequest("", "" , "", new Date(), "", "", "");
+    this.clientRequest = new ClientRequest("", "" , "", "", "", "", "", "", "");
   }
 
 

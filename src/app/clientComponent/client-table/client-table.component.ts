@@ -22,6 +22,9 @@ import {MatRadioModule} from '@angular/material/radio';
 import { CdkObserveContent } from "@angular/cdk/observers";
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { MatDivider } from "@angular/material/divider";
+import { NepaliDateFormat } from '../../core/request/NepaliDateFormat';
+import { DateFormattedResponseService } from '../../core/services/dateFormattedService/date-formatted-response.service';
+import { FormattedClientResponse } from '../../core/response/formattedClientResponse';
 
 export interface dataModel{
   key : string;
@@ -75,7 +78,9 @@ export class ClientTableComponent implements OnInit{
 
 
   clientApiService = inject(ClientApiService);
+  dateFormattedResponseService = inject(DateFormattedResponseService);
   clientResponseList!: Array<ClientResponse>;
+  formattedClientResponseList !: Array<FormattedClientResponse>;
   paginationLinks !: Array<ApiPaginationLinks>;
 
   
@@ -106,8 +111,12 @@ export class ClientTableComponent implements OnInit{
     {key: "Total" , value: SortBy.TOTAL }
   ]
 
+  // formattedYearList : Array<string> = new Array<string>();
+
   searchControl = new FormControl('');
   isClientFound : boolean = true;
+
+  formattedDate : NepaliDateFormat = new NepaliDateFormat();
 
 
 
@@ -119,12 +128,11 @@ export class ClientTableComponent implements OnInit{
       distinctUntilChanged()
     )
     .subscribe( searchValue =>{
-
       // 1. If a previous search is still running, CANCEL it
       if (this.searchSubscription) {
         this.searchSubscription.unsubscribe();
       }
-      
+
       if(!searchValue || searchValue.trim()===""){
         this.getAllClients();
         return;
@@ -134,10 +142,8 @@ export class ClientTableComponent implements OnInit{
         next : (response : ApiResponseModelPaginated<ClientResponse>) => {
             this.clientResponseList = response.data.content;
             this.paginationLinks = response.data.links;
-            
-              this.isClientFound = !!(this.clientResponseList && this.clientResponseList.length>0);
-              console.log("client not found")
-            
+            this.isClientFound = !!(this.clientResponseList && this.clientResponseList.length>0);
+            console.log("client not found")
             console.log(response);
           },
         error : (error) => {
@@ -173,7 +179,10 @@ export class ClientTableComponent implements OnInit{
     })
   }
 
+  formatDateInOne(){
+    const responseClientData = this.clientResponseList;
 
+  }
 
 /* -------------------API CALLS (Get ALL CLIENTS/ Delete Clients)------------------------ */
   getAllClients(pageNumber?:number, pageSize?: number,
@@ -181,7 +190,8 @@ export class ClientTableComponent implements OnInit{
     this.clientApiService.getAllClients(pageNumber, pageSize, sortBy, direction).subscribe({
       next : (response : ApiResponseModelPaginated<ClientResponse>) => {
               this.clientResponseList = response.data.content;
-               this.isClientFound  = this.clientResponseList ? true  : false;
+              this.formattedClientResponseList = this.dateFormattedResponseService.formatClientResponse(this.clientResponseList);
+              this.isClientFound  = this.clientResponseList ? true  : false;
               this.paginationLinks = response.data.links
             },
       error : (error) => console.log("Error Getting All Clients"),

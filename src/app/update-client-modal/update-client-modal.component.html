@@ -7,6 +7,8 @@
             </button>
         </div>
     
+
+        
         <div class="modalBody modal-body">
             
             <section class="row g-3">
@@ -31,13 +33,19 @@
                 </div>
             </section>
 
-            <section class="row g-3 mt-2">
+             <rtc-nepali-datepicker                     
+                    [pickerId]="pickerId"
+                    [options]="datepickerOptions"
+                    [value]="selectedDate"
+                    (dateChange)="onDateChange($event)">
+                </rtc-nepali-datepicker>
+            <!-- <section class="row g-3 mt-2">
                 <div class="col">
                     <label class="form-label ps-2" for="confirmPassword">Date</label>
                     <input type="date" class="placeHolder form-control" placeholder="Confirm Password" aria-label="Confirm Password" id="confirmPassword"
                     [(ngModel)]="clientRequest.date">
                 </div>
-            </section>
+            </section> -->
 
             <section class="row g-3 mt-2">
                 <div class="col">
