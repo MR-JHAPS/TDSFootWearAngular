@@ -1,0 +1,144 @@
+
+
+<section class="tableContainer">
+    <!-- <section class="download">
+        <button mat-raised-button color="primary" (click)="downloadExcelFile()"> Download Excel File</button>
+    </section> -->
+
+
+    <!-- <div class="title">
+       <h5> Client List </h5>
+    </div> -->
+    <article class="features">
+
+        <div class="leftContainer">
+           
+
+            <div class="download">
+                <button mat-raised-button color="primary" (click)="downloadExcelFile()"> Download Excel File</button>
+            </div>
+        </div>
+            
+        <div class="rightContainer">
+             <div class="searchContainer">
+                    <mat-form-field appearance="outline" color="accent" id="row" class="searchFormField">
+                                <mat-label>
+                                    <mat-icon >
+                                        search
+                                    </mat-icon>
+                                    Search Clients
+                                </mat-label>
+                                <div class="inputContainer">
+                                    <input  matInput #searchBar="matInput" [formControl]="searchControl"  type="text" placeholder="Eg : Name / Id" >
+                                    @if (searchBar.value.length>0 ) {
+                                            <mat-icon class="clearIcon" > <a (click)="clearSearch()">clear </a>  </mat-icon>       
+                                        }
+                                </div>
+                    </mat-form-field>
+            </div>
+
+            <div class="sortContainer">
+                    <mat-form-field class="sortFormField" appearance="outline" color="accent">
+                        <mat-label >Sort</mat-label>
+                        <mat-select [(value)]="selectedSortBy"  (selectionChange)="onSortClick(selectedSortBy, selectedSortDirection)">
+                            <h3 class="sortHeader">Sort By</h3>
+                            @for (sBy of sortBy; track sBy) {
+                                <mat-option class="sortByOptions" [value]="sBy.value" > {{sBy.key}}</mat-option>
+                            }
+
+                            <mat-divider ></mat-divider>
+
+                            <h3 class="sortHeader">Sort Order</h3>
+                            <div class="radioGroupWrapper" (click)="$event.stopPropagation()">
+                                <mat-radio-group [(ngModel)]="selectedSortDirection" >
+                                        @for (direction of sortDirections; track direction) {
+                                            <!-- <mat-radio-button  class="sortDirectionButton" [value]="direction.value" (change)="onSortClick(selectedSortBy, selectedSortDirection)"> -->
+                                            <mat-radio-button  class="sortDirectionButton" [value]="direction.value" (click)="selectedSortDirection = direction.value; onSortClick(selectedSortBy, selectedSortDirection)">
+                                                <div class="sortDirectionLabel"> 
+                                                    {{direction.key}} <i [class]="direction.icon"></i>
+                                                </div> 
+                                            </mat-radio-button>
+                                        }
+                                </mat-radio-group>
+                            </div><!-- ends Wrapper -->
+                        </mat-select>
+                    </mat-form-field>
+            </div>
+        </div>
+        
+    </article>
+
+
+
+
+    <table class="table mt-3">
+
+        <thead>
+            <tr class="stickyHeader">
+                <th> ID </th>
+                <th> CLIENT NAME </th>
+                <th> PAN NUMBER </th>
+                <th> BILL NUMBER </th>
+                <th> DATE </th>
+                <th> AMOUNT </th>
+                <th> VAT/TAX </th>
+                <th> TOTAL </th>
+
+                <th>
+                    ACTION
+                </th>
+            </tr>
+        </thead>
+
+        @if (isClientFound) {
+            <tbody>
+                @for (client of clientResponseList; track client.id) {
+                    <tr class="clickable-row">
+                        <td >{{client.id}}</td>
+                        <td >{{client.foomName}}</td>
+                        <td >{{client.panNumber}}</td>
+                        <td >{{client.billNumber}}</td>
+                        <td >{{client.date}}</td>
+                        <td >{{client.amount}}</td>
+                        <td >{{client.vatTax}}</td>
+                        <td >{{client.total}}</td>
+                        <td class="text-center">
+                                <div class="d-flex gap-3 justify-content-start">
+                                    <button class="updateButton" (click)="openUpdateModal(client.id); $event.stopPropagation()">
+                                    <i class="fa-solid fa-pen" style="color: #ffffff;"></i>
+                                    </button>
+
+                                    <button class="deleteButton" (click)="openDeleteClientModal(client.id)">
+                                    <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                                    </button>
+                                </div> 
+                            </td>
+                    </tr>
+                }<!-- ends for -->
+            </tbody>
+        }<!-- ends if -->
+        
+    </table>
+    @if(!isClientFound){
+            <div class="notFound"> 
+                <h3>Client Not Found !!! </h3>                
+            </div>
+        }
+
+</section>
+
+
+
+
+    <!-- This is the PAGINATION COMPONENT -->
+<section class="paginationContainer d-flex justify-content-center  ">
+ 
+    <app-pagination
+    [pageLinks]="paginationLinks"
+    (pageUrl)="toRequestedPage($event)"  
+    (contentSize)="changeContentSize($event)"  
+    >
+    
+    </app-pagination>
+
+</section>

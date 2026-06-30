@@ -9,7 +9,18 @@ export const API_ENDPOINTS={
     getClientById : (id :number) => `/client/${id}`,
     insertNewClient : "/client/insert",
     searchClient : "/client/search",
-    downloadFile : "/client/download/clients"
+    downloadFile : "/client/download/clients",
+
+
+    getAllKharids : "/kharid",
+    updateKharidById: (id :number) => `/kharid/${id}`,
+    deleteKharidById : (id :number) => `/kharid/${id}`,
+    getKharidById : (id :number) => `/kharid/${id}`,
+    insertNewKharid : "/kharid/insert",
+    searchKharid : "/kharid/search",
+    downloadFileKharid : "/kharid/download/kharids",
+
+
 
 
 
