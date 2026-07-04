@@ -6,6 +6,7 @@ import { ApiResponseModel } from '../../response/ApiResponseModel';
 import { ClientResponse } from '../../response/clientResponse';
 import { ClientRequest } from '../../request/ClientRequest';
 import { ApiResponseModelPaginated } from '../../response/apiResponseModelPaginated';
+import { WrapperClientResponse } from '../../response/WrapperClientResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,21 @@ export class ClientApiService {
     return this.httpClient.get<ApiResponseModelPaginated<ClientResponse>>(url,{params});
   }
 
+
+  getAllClientsMonthly(pageNumber?: number, pageSize?: number, sortBy?:string, direction?: string) : Observable<ApiResponseModelPaginated<WrapperClientResponse>>{
+    const url = `${this.apiEndpoints.baseUrl}${this.apiEndpoints.getAllClients}`;
+    let size = pageSize ? pageSize : 10;
+      let number = pageNumber ? pageNumber : 0;
+      let sortingBy = sortBy ? sortBy : "";
+      let sortDirection = direction ? direction : "";
+      const params = new HttpParams()
+      .set("size", size)
+        .set("page" , number)
+        .set("sortBy", sortingBy)
+        .set("direction", sortDirection)
+    return this.httpClient.get<ApiResponseModelPaginated<WrapperClientResponse>>(url,{params});
+  }
+
   getClientById(id : number) : Observable<ApiResponseModel<ClientResponse>>{
     const url = `${this.apiEndpoints.baseUrl}${this.apiEndpoints.getClientById(id)}`;
     return this.httpClient.get<ApiResponseModel<ClientResponse>>(url);
@@ -51,6 +67,10 @@ export class ClientApiService {
   }
 
 
+
+  getWrappedRequestedPage(url : string) : Observable<ApiResponseModelPaginated<WrapperClientResponse>>{
+    return this.httpClient.get<ApiResponseModelPaginated<WrapperClientResponse>>(url);
+  }
 
   getRequestedPage(url : string) : Observable<ApiResponseModelPaginated<ClientResponse>>{
     return this.httpClient.get<ApiResponseModelPaginated<ClientResponse>>(url);

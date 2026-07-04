@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { WrapperClientResponse } from '../../response/WrapperClientResponse';
+import { FormattedWrapperClientResponse } from '../../response/FormattedWrapperClientResponse';
 import { ClientResponse } from '../../response/clientResponse';
 import { FormattedClientResponse } from '../../response/formattedClientResponse';
-import { NepaliDateFormat } from '../../request/NepaliDateFormat';
-import { FormattedClientRequest } from '../../request/FormattedClientRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -15,38 +15,40 @@ export class DateFormattedResponseService {
 
 
   //Method:
-    // formatClientResponse(rawResponseList : Array<ClientResponse>) : Array<FormattedClientResponse>{
-    //   rawResponseList.forEach(client=>{
-    //       let formattedClient : FormattedClientRequest = new FormattedClientRequest(); // this is to store the formatted date client
-    //       let formattedDate : string = ""; // this is to store the string value of date
-    //       formattedDate = client.yearInBs + "-" + client.monthInBs + "-" +client.dayInBs; // converting to single string value as a date.
-    //       formattedClient.foomName = client.foomName;
-    //       formattedClient.billNumber = client.billNumber;
-    //       formattedClient.panNumber = client.panNumber;
-    //       formattedClient.amount = client.amount;
-    //       formattedClient.vatTax = client.vatTax;
-    //       formattedClient.total = client.total;
-    //       formattedClient.formattedDate = formattedDate;
-    //       this.formattedCientList.push(formattedClient);
-    //       console.log("this is the formatted client : " + formattedClient);
-    //   })
-    //   return this.formattedCientList;
-    // }//ends method
+    formatClientResponse(rawResponseList : ClientResponse[]) : FormattedClientResponse[]{
+      return rawResponseList.map( client => ({
+          id : client.id,
+          formattedDate : `${client.yearInBs}-${client.monthInBs}-${client.dayInBs}`, // converting to single string value as a date.
+          foomName : client.foomName,
+          billNumber : client.billNumber,
+          panNumber : client.panNumber,
+          amount : client.amount,
+          vatTax : client.vatTax,
+          total : client.total,
+          
+      }));
+    }//ends method
 
 
 
-    formatClientResponse(rawResponseList: ClientResponse[]): FormattedClientResponse[] {
+    formatWrappedClientResponse(rawWrappedResponseList: WrapperClientResponse[]): FormattedWrapperClientResponse[] {
 
-        return rawResponseList.map(client => ({
-          id: client.id,
-          foomName: client.foomName,
-          billNumber: client.billNumber,
-          panNumber: client.panNumber,
-          vatTax: client.vatTax,
-          formattedDate: `${client.yearInBs}-${client.monthInBs}-${client.dayInBs}`,
-          amount: client.amount,
-          total: client.total
-        }));
+        return rawWrappedResponseList.map(wrappedClient => ({
+          /* client : ... is the field name of the Class/Interface that I want to return in this method */
+          client : wrappedClient.client.map(c =>({
+            id: c.id,
+            foomName: c.foomName,
+            billNumber: c.billNumber,
+            panNumber: c.panNumber,
+            vatTax: c.vatTax,
+            formattedDate: `${c.yearInBs}-${c.monthInBs}-${c.dayInBs}`,
+            amount: c.amount,
+            total: c.total
+          })),
+
+          /* monthlyTotal : ... is the field name of the Class/Interface that I want to return in this method */
+           monthlyTotal : wrappedClient.monthlyTotal
+          }));
 
     }
 

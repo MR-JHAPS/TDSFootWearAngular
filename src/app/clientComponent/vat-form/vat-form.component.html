@@ -64,12 +64,12 @@
 
                 <mat-form-field appearance="outline" id="vatTax">
                         <mat-label>VAT TAX (13%)</mat-label>
-                        <input matInput #vatTax="matInput" type="text" placeholder="Eg : 66636383" [(ngModel)]="clientRequest.vatTax" (input)="calculateTotal()">
+                        <input matInput #vatTax="matInput" type="text" readonly="" placeholder="Eg : 66636383" [(ngModel)]="clientRequest.vatTax" (input)="calculateTotal()">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" id="total">
                         <mat-label>TOTAL</mat-label>
-                        <input matInput #total="matInput" readonly="" type="text" placeholder="Eg : 66636383" [(ngModel)]="clientRequest.total">
+                        <input matInput #total="matInput" readonly type="text" placeholder="Eg : 66636383" [(ngModel)]="clientRequest.total">
                 </mat-form-field>
             </section>
 

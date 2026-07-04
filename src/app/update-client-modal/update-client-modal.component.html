@@ -51,7 +51,7 @@
                 <div class="col">
                     <label class="form-label ps-2" for="confirmPassword"> Amount</label>
                     <input type="number" class="placeHolder form-control" placeholder="Confirm Password" aria-label="Confirm Password" id="confirmPassword"
-                    [(ngModel)]="clientRequest.amount">
+                    [(ngModel)]="clientRequest.amount" (input)="calculateTotal()">
                 </div>
             </section>
 
@@ -59,7 +59,7 @@
                 <div class="col">
                     <label class="form-label ps-2" for="confirmPassword">Vat/Tax</label>
                     <input type="number" class="placeHolder form-control" placeholder="Confirm Password" aria-label="Confirm Password" id="confirmPassword"
-                    [(ngModel)]="clientRequest.vatTax">
+                    [(ngModel)]="clientRequest.vatTax" (input)="calculateTotal()">
                 </div>
             </section>
 
@@ -67,7 +67,7 @@
                 <div class="col">
                     <label class="form-label ps-2" for="confirmPassword">Total</label>
                     <input type="number" class="placeHolder form-control" placeholder="Confirm Password" aria-label="Confirm Password" id="confirmPassword"
-                    [(ngModel)]="clientRequest.total">
+                    [(ngModel)]="clientRequest.total" >
                 </div>
             </section>
 

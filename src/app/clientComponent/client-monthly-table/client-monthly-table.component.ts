@@ -1,56 +1,45 @@
-import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { PaginationComponent } from "../../pagination/pagination.component";
-import { ClientApiService } from '../../core/services/clientApiService/client-api.service';
-import { ApiResponseModel } from '../../core/response/ApiResponseModel';
-import { ClientResponse } from '../../core/response/clientResponse';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaginationComponent } from '../../pagination/pagination.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { CdkObserveContent } from '@angular/cdk/observers';
+import { MatDivider } from '@angular/material/divider';
 import { ApiResponseModelPaginated } from '../../core/response/apiResponseModelPaginated';
-import { ApiPaginationLinks } from '../../core/response/ApiPaginationLinks';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { UpdateClientModalComponent } from '../../update-client-modal/update-client-modal.component';
-import { ToastrService } from 'ngx-toastr';
-import { DeleteModalComponent } from '../../delete-modal/delete-modal.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { SortDirection } from '../../core/enum/sortDirection';
-import { SortBy } from '../../core/enum/sortBy';
-import { MatIcon,MatIconModule } from '@angular/material/icon';
-import {MatRadioModule} from '@angular/material/radio';
-import { CdkObserveContent } from "@angular/cdk/observers";
-import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
-import { MatDivider } from "@angular/material/divider";
-import { NepaliDateFormat } from '../../core/request/NepaliDateFormat';
-import { DateFormattedResponseService } from '../../core/services/dateFormattedService/date-formatted-response.service';
-import { FormattedClientResponse } from '../../core/response/formattedClientResponse';
 import { WrapperClientResponse } from '../../core/response/WrapperClientResponse';
+import { ClientApiService } from '../../core/services/clientApiService/client-api.service';
+import { DateFormattedResponseService } from '../../core/services/dateFormattedService/date-formatted-response.service';
 import { FormattedWrapperClientResponse } from '../../core/response/FormattedWrapperClientResponse';
-
-export interface dataModel{
-  key : string;
-  value : SortDirection | SortBy;
-  icon ?: string;
-}
-
-
+import { ApiPaginationLinks } from '../../core/response/ApiPaginationLinks';
+import { Subscription } from 'rxjs';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { SortDirection } from '../../core/enum/sortDirection';
+import { dataModel } from '../client-table/client-table.component';
+import { SortBy } from '../../core/enum/sortBy';
+import { NepaliDateFormat } from '../../core/request/NepaliDateFormat';
+import { ApiResponseModel } from '../../core/response/ApiResponseModel';
+import { UpdateClientModalComponent } from '../../update-client-modal/update-client-modal.component';
 
 @Component({
-  selector: 'app-client-table',
+  selector: 'app-client-monthly-table',
   imports: [PaginationComponent, MatDialogModule, MatButtonModule,
     FormsModule, MatInputModule, MatRadioModule, MatSelectModule, MatFormFieldModule, MatIcon, CdkObserveContent, ReactiveFormsModule, MatDivider],
-  templateUrl: './client-table.component.html',
-  styleUrl: './client-table.component.css'
+  templateUrl: './client-monthly-table.component.html',
+  styleUrl: './client-monthly-table.component.css'
 })
-export class ClientTableComponent implements OnInit{
-
+export class ClientMonthlyTableComponent {
 
 
   clientApiService = inject(ClientApiService);
   dateFormattedResponseService = inject(DateFormattedResponseService);
-  clientResponseList!: Array<ClientResponse>;
-  formattedClientResponseList !: Array<FormattedClientResponse>;
+  clientResponseList!: Array<WrapperClientResponse>;
+  formattedWrappedClientResponseList !: Array<FormattedWrapperClientResponse>;
   paginationLinks !: Array<ApiPaginationLinks>;
 
   
@@ -75,7 +64,7 @@ export class ClientTableComponent implements OnInit{
   sortBy : dataModel[] = [
     {key: "ID" , value: SortBy.ID },
     {key: "Client Name" , value: SortBy.CLIENTNAME },
-    // {key: "Date" , value: SortBy.DATE },
+    {key: "Date" , value: SortBy.DATE },
     {key: "Amount" , value: SortBy.AMOUNT },
     {key: "Vat Amount" , value: SortBy.VATAMOUNT },
     {key: "Total" , value: SortBy.TOTAL }
@@ -93,7 +82,7 @@ export class ClientTableComponent implements OnInit{
   ngOnInit(): void {
       this.getAllClients();
 
-       this.searchControl.valueChanges.pipe(
+       /* this.searchControl.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged()
     )
@@ -109,9 +98,8 @@ export class ClientTableComponent implements OnInit{
       }
       console.log("search query is " + searchValue);
       this.searchSubscription = this.clientApiService.searchClient(searchValue! , 0 , this.currentContentSize, this.selectedSortBy, this.selectedSortDirection).subscribe({
-        next : (response : ApiResponseModelPaginated<ClientResponse>) => {
+        next : (response : ApiResponseModelPaginated<WrapperClientResponse>) => {
             this.clientResponseList = response.data.content;
-              this.formattedClientResponseList = this.dateFormattedResponseService.formatClientResponse(this.clientResponseList);
             this.paginationLinks = response.data.links;
             this.isClientFound = !!(this.clientResponseList && this.clientResponseList.length>0);
             console.log("client not found")
@@ -123,7 +111,7 @@ export class ClientTableComponent implements OnInit{
           }
       });
       console.log(searchValue! + this.currentContentSize + this.selectedSortBy +  this.selectedSortDirection);
-    })
+    }) */
   }
 
 
@@ -150,20 +138,23 @@ export class ClientTableComponent implements OnInit{
     })
   }
 
-  
+  formatDateInOne(){
+    const responseClientData = this.clientResponseList;
+
+  }
 
 /* -------------------API CALLS (Get ALL CLIENTS/ Delete Clients)------------------------ */
   getAllClients(pageNumber?:number, pageSize?: number,
                 sortBy?: string, direction?: string ) : void{
-    this.clientApiService.getAllClients(pageNumber, pageSize, sortBy, direction).subscribe({
-      next : (response : ApiResponseModelPaginated<ClientResponse>) => {
+    this.clientApiService.getAllClientsMonthly(pageNumber, pageSize, sortBy, direction).subscribe({
+      next : (response : ApiResponseModelPaginated<WrapperClientResponse>) => {
               this.clientResponseList = response.data.content;
-              this.formattedClientResponseList = this.dateFormattedResponseService.formatClientResponse(this.clientResponseList);
+              this.formattedWrappedClientResponseList = this.dateFormattedResponseService.formatWrappedClientResponse(this.clientResponseList);
               this.isClientFound  = this.clientResponseList ? true  : false;
               this.paginationLinks = response.data.links;
               console.log(this.clientResponseList);
               console.log(response);
-              console.log(this.formattedClientResponseList);
+              console.log(this.formattedWrappedClientResponseList);
             },
       error : (error) => console.log("Error Getting All Clients"),
       complete : () => console.log("All Clients Obtained Successfully") 
@@ -199,7 +190,6 @@ export class ClientTableComponent implements OnInit{
       initialState: {
         openUpdateModal : true,
         clientId : id,
-        componentName:"client"
       }
     })
     //subscribing to the variable of the updateModal page.
@@ -212,7 +202,7 @@ export class ClientTableComponent implements OnInit{
   }
 
   //angular material dialog/modal is used here instead of bootstrap.
-  openDeleteClientModal(id : number){
+ /*  openDeleteClientModal(id : number){
     console.log("open modal for delete the selected client ID: " + id);
     const dialogRef = this._dialog.open(DeleteModalComponent, {
       width: '400px',
@@ -225,14 +215,14 @@ export class ClientTableComponent implements OnInit{
         
       }
     });
-  }
+  } */
 
 
 
   /* ------------------- PAGINTAION(NEXT/PREV/FIRST/LAST) ------------------------ */
   toRequestedPage(requestedPageUrl : string):void{
-    this.clientApiService.getRequestedPage(requestedPageUrl).subscribe({
-      next : (response : ApiResponseModelPaginated<ClientResponse>) => {
+    this.clientApiService.getWrappedRequestedPage(requestedPageUrl).subscribe({
+      next : (response : ApiResponseModelPaginated<WrapperClientResponse>) => {
               this.clientResponseList = response.data.content;
               this.paginationLinks = response.data.links
             },
@@ -253,6 +243,7 @@ export class ClientTableComponent implements OnInit{
     this.currentContentSize  = contentSize;
     this.getAllClients(0, contentSize);
   }
+
 
 
 }

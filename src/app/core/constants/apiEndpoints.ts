@@ -4,6 +4,7 @@ export const API_ENDPOINTS={
 
 
     getAllClients : "/client",
+    getAllClientsMonthly : "/client/monthly",
     updateClientById: (id :number) => `/client/${id}`,
     deleteClientById : (id :number) => `/client/${id}`,
     getClientById : (id :number) => `/client/${id}`,
@@ -13,6 +14,7 @@ export const API_ENDPOINTS={
 
 
     getAllKharids : "/kharid",
+    getAllKharidMonthly : "/kharid/monthly",
     updateKharidById: (id :number) => `/kharid/${id}`,
     deleteKharidById : (id :number) => `/kharid/${id}`,
     getKharidById : (id :number) => `/kharid/${id}`,

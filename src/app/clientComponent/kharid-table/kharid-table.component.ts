@@ -94,6 +94,7 @@ export class KharidTableComponent {
       this.searchSubscription = this.kharidApiService.searchKharid(searchValue! , 0 , this.currentContentSize, this.selectedSortBy, this.selectedSortDirection).subscribe({
         next : (response : ApiResponseModelPaginated<ClientResponse>) => {
             this.clientResponseList = response.data.content;
+            this.formattedClientResponseList = this.dateFormattedResponseService.formatClientResponse(this.clientResponseList);
             this.paginationLinks = response.data.links;
             
               this.isKharidClientFound = !!(this.clientResponseList && this.clientResponseList.length>0);
@@ -181,12 +182,13 @@ export class KharidTableComponent {
       initialState: {
         openUpdateModal : true,
         clientId : id,
+        componentName:"kharid"
       }
     })
     //subscribing to the variable of the updateModal page.
     this.bsModalRef.content.onClientUpdate.subscribe((updated:boolean)=>{
       if(updated){
-        console.log("Client Updated, refreshing table ...");
+        console.log("Kharid Updated, refreshing table ...");
         this.getAllKharid();
       }
     })

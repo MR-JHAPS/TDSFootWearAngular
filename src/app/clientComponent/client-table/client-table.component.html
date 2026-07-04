@@ -1,4 +1,11 @@
 
+<section class="Tab bg-dark text-light">
+
+    Here will be the Tab
+</section>
+
+
+
 
 <section class="tableContainer">
     <!-- <section class="download">
@@ -93,31 +100,31 @@
         @if (isClientFound) {
             <tbody>
                 @for (client of formattedClientResponseList; track client.id) {
-                    <tr class="clickable-row">
-                        <td >{{client.id}}</td>
-                        <td >{{client.foomName}}</td>
-                        <td >{{client.panNumber}}</td>
-                        <td >{{client.billNumber}}</td>
-                        <td >{{client.formattedDate}}</td>
-                        <!-- <td >{{client.monthInBs}}</td>
-                        <td >{{client.dayInBs}}</td> -->
-                        <!-- <td >{{client.date}}</td> -->
-                        <td >{{client.amount}}</td>
-                        <td >{{client.vatTax}}</td>
-                        <td >{{client.total}}</td>
-                        <td class="text-center">
-                                <div class="d-flex gap-3 justify-content-start">
-                                    <button class="updateButton" (click)="openUpdateModal(client.id); $event.stopPropagation()">
-                                    <i class="fa-solid fa-pen" style="color: #ffffff;"></i>
-                                    </button>
+                        <tr class="clickable-row">
+                            <td >{{client.id}}</td>
+                            <td >{{client.foomName}}</td>
+                            <td >{{client.panNumber}}</td>
+                            <td >{{client.billNumber}}</td>
+                            <td >{{client.formattedDate}}</td>
+                            <!-- <td >{{client.monthInBs}}</td>
+                            <td >{{client.dayInBs}}</td> -->
+                            <!-- <td >{{client.date}}</td> -->
+                            <td >{{client.amount}}</td>
+                            <td >{{client.vatTax}}</td>
+                            <td >{{client.total}}</td>
+                            <td class="text-center">
+                                    <div class="d-flex gap-3 justify-content-start">
+                                        <button class="updateButton" (click)="openUpdateModal(client.id); $event.stopPropagation()">
+                                        <i class="fa-solid fa-pen" style="color: #ffffff;"></i>
+                                        </button>
 
-                                    <button class="deleteButton" (click)="openDeleteClientModal(client.id)">
-                                    <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
-                                    </button>
-                                </div> 
-                            </td>
-                    </tr>
-                }<!-- ends for -->
+                                        <button class="deleteButton" (click)="openDeleteClientModal(client.id)">
+                                        <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                                        </button>
+                                    </div> 
+                                </td>
+                        </tr>
+                    }<!-- ends for -->
             </tbody>
         }<!-- ends if -->
         

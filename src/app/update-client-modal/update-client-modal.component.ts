@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { RtcNepaliDatePickerModule } from '@rishovt/angular-nepali-datepicker';
 import { NepaliDateFormat } from '../core/request/NepaliDateFormat';
+import { KharidApiService } from '../core/services/kharidApiService/kharid-api.service';
 
 
 @Component({
@@ -24,11 +25,13 @@ export class UpdateClientModalComponent implements OnInit {
   _router = inject(Router);
   _modalService = inject(BsModalService);
   _clientApiService = inject(ClientApiService);
+  _kharidApiService = inject(KharidApiService);
   _toastrService = inject(ToastrService);
 
   openUpdateModal : boolean = false;
 
   clientId !: number;
+  componentName !: string; 
 
   clientRequest : ClientRequest = new ClientRequest();
   clientResponse !: ClientResponse ;
@@ -44,6 +47,15 @@ export class UpdateClientModalComponent implements OnInit {
   }
 
 
+  calculateTotal():void{
+    let total = 0;
+    let amount = Number(this.clientRequest.amount);
+    // let vat = Number(this.clientRequest.vatTax);
+    let vat = (13/100)*amount;
+    this.clientRequest.vatTax = vat;
+    total = amount + vat;
+    this.clientRequest.total = total.toString();
+  }
 
   selectedDate: NepaliDateFormat = new NepaliDateFormat();
   
@@ -79,15 +91,33 @@ export class UpdateClientModalComponent implements OnInit {
 
 
 
+  verifyComponentType() : any {
+    if(this.componentName==="client"){
+      return this._clientApiService;
+    }else{
+      return this._kharidApiService;
+    }
+  }
+
+  verifyComponentAction() : string {
+    if(this.componentName==="client"){
+      return "Client";
+    }else{
+      return "Kharid";
+    }
+  }
+
+
 
 
   getClientById() : void {
-    this._clientApiService.getClientById(this.clientId).subscribe({
+    //Dynamic APIService Selection and its method selection.
+    this.verifyComponentType()[`get${this.verifyComponentAction()}ById`](this.clientId).subscribe({
       next : (response : ApiResponseModel<ClientResponse>) => {
         console.log("Client By ID : ", response.data);
         this.clientRequest = response.data;
       },
-      error : (error)=>{
+      error : (error : any)=>{
         console.log("Error occured while getting client By Id.", error)
       },
       complete : ()=>{
@@ -98,9 +128,13 @@ export class UpdateClientModalComponent implements OnInit {
 
 
 
+
+
+
   updateClientById() : void{
     this.isLoading = true;
-    this._clientApiService.updateClientById(this.clientId, this.clientRequest).subscribe({
+    // this._clientApiService.updateClientById(this.clientId, this.clientRequest).subscribe({
+    this.verifyComponentType()[`update${this.verifyComponentAction()}ById`](this.clientId, this.clientRequest).subscribe({
       next : (response : ApiResponseModel<string>)=>{
         console.log("Updating Client by ID.");
         this.isLoading = false;
@@ -108,7 +142,7 @@ export class UpdateClientModalComponent implements OnInit {
         this._modalService.hide();
         this.onClientUpdate.next(true);
       },
-      error : (error)=>{
+      error : (error: any)=>{
         console.log("Error occured while updating client By Id.", error)
         this._toastrService.error("Error Updating Client.");
         this.isLoading = false;
