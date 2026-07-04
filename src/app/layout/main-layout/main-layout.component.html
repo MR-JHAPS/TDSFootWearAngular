@@ -1,4 +1,41 @@
-<mat-tab-group #tabContainer class="customClientTabs" >
+<mat-tab-group #tabContainer class="customMainTabs" >
+    <mat-tab > 
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">table_chart</mat-icon>
+            <span>Bikri Table</span>
+        </ng-template>
+        <app-client-layout #clientLayoutTab></app-client-layout>
+    </mat-tab>
+
+    <mat-tab > 
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">table_chart</mat-icon>
+            <span>Kharid Layout</span>
+        </ng-template>
+        <app-kharid-layout #kharidLayoutTab></app-kharid-layout>
+    </mat-tab>
+
+  <mat-tab> 
+     <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">add_circle</mat-icon>
+            <span>Insert New Client</span>
+      </ng-template>
+    <app-vat-form
+    (isClientInsertedEmitter)="afterClientInserted($event)"
+    (isKharidInsertedEmitter)="afterKharidInserted($event)"
+    >
+
+    </app-vat-form>
+  </mat-tab>
+  
+</mat-tab-group>
+
+
+
+
+
+
+<!-- <mat-tab-group #tabContainer class="customClientTabs" >
     <mat-tab > 
         <ng-template mat-tab-label>
             <mat-icon class="tab-icon">table_chart</mat-icon>
@@ -28,4 +65,8 @@
     </app-vat-form>
   </mat-tab>
   
-</mat-tab-group>
+</mat-tab-group> -->
+
+
+
+

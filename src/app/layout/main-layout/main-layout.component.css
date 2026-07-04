@@ -1,5 +1,11 @@
-.tabContainer{
-    background-color: green !important;
+
+::ng-deep .customMainTabs .mat-mdc-tab-header {
+    padding-bottom: 2rem;
+}
+
+
+::ng-deep .customMainTabs .mat-mdc-tab-label-container {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 /* 1. Change the color of the INACTIVE tab label */
@@ -8,21 +14,21 @@
 } */
 
 /* 1. Base color for all tabs */
-.customClientTabs ::ng-deep .mdc-tab__text-label {
+.customMainTabs ::ng-deep .mdc-tab__text-label {
     color: var(--materialPrimaryDark) !important;
-    font-weight: 400;
+    font-weight: bold;
     font-size: medium;
     /* font-family: 'Times New Roman', Times, serif */
 }
 
 /* Target the underline content specifically */
-.customClientTabs ::ng-deep .mdc-tab-indicator .mdc-tab-indicator__content--underline {
+.customMainTabs ::ng-deep .mdc-tab-indicator .mdc-tab-indicator__content--underline {
   border-color: var(--mutedOrange) !important;
   border-width: 2px; /* Optional: Adjust thickness if you want it bolder */
 }
 
 /* 2. Active color (Stronger selector by combining class names) */
-.customClientTabs ::ng-deep .mat-mdc-tab-active .mdc-tab__text-label {
+.customMainTabs ::ng-deep .mat-mdc-tab-active .mdc-tab__text-label {
   /* color: red !important; */
 }
 

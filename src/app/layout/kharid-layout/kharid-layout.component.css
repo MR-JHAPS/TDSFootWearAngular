@@ -1,0 +1,66 @@
+
+
+.center-tabs{
+    /* padding-top: 2rem; */
+}
+
+/* This is to shrink the size of the tabs-zone */
+::ng-deep .customKharidLayoutTabs .mat-mdc-tab-header {
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* this is the small Tabs Container area */
+::ng-deep .customKharidLayoutTabs .mat-mdc-tab-label-container {
+    flex-grow: 0;
+    box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+
+
+.tabContainer{
+    background-color: green !important;
+}
+
+/* 1. Change the color of the INACTIVE tab label */
+/* .customClientTabs ::ng-deep  .mdc-tab__text-label {
+  color: var(--materialAccentDark) !important; 
+} */
+
+/* 1. Base color for all tabs */
+.customKharidLayoutTabs ::ng-deep .mdc-tab__text-label {
+    color: var(--materialPrimaryDark) !important;
+    font-weight: normal;
+    font-size: medium;
+    /* font-family: 'Times New Roman', Times, serif */
+}
+
+/* Target the underline content specifically */
+.customKharidLayoutTabs ::ng-deep .mdc-tab-indicator .mdc-tab-indicator__content--underline {
+  border-color: var(--mutedOrange) !important;
+  border-width: 5px; /* Optional: Adjust thickness if you want it bolder */
+}
+
+
+.customKharidLayoutTabs ::ng-deep .mdc-tab-indicator  :hover {
+  border-color: var(--mutedOrange) !important;
+  border-width: 2px; /* Optional: Adjust thickness if you want it bolder */
+}
+
+
+
+
+/* Space between the icon and the text label */
+.tab-icon {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Ensure the label content aligns nicely */
+::ng-deep .mdc-tab__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

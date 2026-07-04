@@ -1,0 +1,21 @@
+
+<div class="center-tabs">
+    <mat-tab-group #tabContainer class="customClientLayoutTabs" >
+        <mat-tab > 
+            <ng-template mat-tab-label>
+                <!-- <mat-icon class="tab-icon">table_chart</mat-icon> -->
+                <span >Bikri Table</span>
+            </ng-template>
+            <app-client-table #clientTableTab></app-client-table>
+        </mat-tab>
+
+        <mat-tab > 
+            <ng-template mat-tab-label>
+                <!-- <mat-icon class="tab-icon">table_chart</mat-icon> -->
+                <span >Monthly Total Table</span>
+            </ng-template>
+            <app-client-monthly-table #clientMonthlyTableTab></app-client-monthly-table>
+        </mat-tab>
+    
+    </mat-tab-group>
+</div>

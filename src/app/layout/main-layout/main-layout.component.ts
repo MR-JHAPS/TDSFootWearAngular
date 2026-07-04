@@ -6,10 +6,12 @@ import { SortBy } from '../../core/enum/sortBy';
 import { SortDirection } from '../../core/enum/sortDirection';
 import { MatIconModule } from '@angular/material/icon';
 import { KharidTableComponent } from "../../clientComponent/kharid-table/kharid-table.component";
+import { KharidLayoutComponent } from '../kharid-layout/kharid-layout.component';
+import { ClientLayoutComponent } from '../client-layout/client-layout.component';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [MatTabsModule, ClientTableComponent, VatFormComponent, MatIconModule, KharidTableComponent],
+  imports: [MatTabsModule, ClientTableComponent, VatFormComponent, MatIconModule, KharidTableComponent, KharidLayoutComponent, ClientLayoutComponent],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css'
 })
@@ -17,6 +19,8 @@ export class MainLayoutComponent {
 @ViewChild("tabContainer") tabContainer !: MatTabGroup;
 @ViewChild("clientTableTab") clientTable !: ClientTableComponent;
 @ViewChild("kharidTableTab") kharidTable !: KharidTableComponent;
+@ViewChild("clientLayoutTab") clientLayout !: ClientLayoutComponent;
+@ViewChild("kharidLayoutTab") kharidLayout !: KharidLayoutComponent;
 
 
 
