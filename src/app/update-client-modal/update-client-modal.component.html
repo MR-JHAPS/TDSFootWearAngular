@@ -33,12 +33,26 @@
                 </div>
             </section>
 
-             <rtc-nepali-datepicker                     
-                    [pickerId]="pickerId"
-                    [options]="datepickerOptions"
-                    [value]="selectedDate"
-                    (dateChange)="onDateChange($event)">
-                </rtc-nepali-datepicker>
+            <section class="row g-3 mt-2">
+                <div class="col">
+                    <label class="form-label ps-2" for="confirmPassword">Year</label>
+                    <input type="number" class="placeHolder form-control" placeholder="Confirm Password" aria-label="Confirm Password" id="confirmPassword"
+                    [(ngModel)]="clientRequest.yearInBs">
+                </div>
+
+                <div class="col">
+                    <label class="form-label ps-2" for="confirmPassword">Month</label>
+                    <input type="number" class="placeHolder form-control" placeholder="Confirm Password" aria-label="Confirm Password" id="confirmPassword"
+                    [(ngModel)]="clientRequest.monthInBs">
+                </div>
+
+                <div class="col">
+                    <label class="form-label ps-2" for="confirmPassword">Day</label>
+                    <input type="number" class="placeHolder form-control" placeholder="Confirm Password" aria-label="Confirm Password" id="confirmPassword"
+                    [(ngModel)]="clientRequest.dayInBs">
+                </div>
+            </section>
+
             <!-- <section class="row g-3 mt-2">
                 <div class="col">
                     <label class="form-label ps-2" for="confirmPassword">Date</label>

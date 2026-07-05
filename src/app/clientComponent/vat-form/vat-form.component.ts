@@ -12,6 +12,7 @@ import { TableName } from '../../core/enum/tableName';
 import { KharidApiService } from '../../core/services/kharidApiService/kharid-api.service';
 import { RtcNepaliDatePickerModule } from '@rishovt/angular-nepali-datepicker';
 import { NepaliDateFormat } from '../../core/request/NepaliDateFormat';
+import { DataRefreshService } from '../../services/dataRefreshService/data-refresh.service';
 
 
 // export class Value{
@@ -40,6 +41,7 @@ import { NepaliDateFormat } from '../../core/request/NepaliDateFormat';
 
 export class VatFormComponent {
 
+  _dataRefreshService = inject(DataRefreshService);
   tableType  = TableName;
    selectedTableType : TableName = TableName.BIKRI; 
   _clientApiService = inject(ClientApiService);
@@ -100,6 +102,7 @@ export class VatFormComponent {
             console.log("Inserting clients.")
             this._toastrService.success("Client Saved Successfully.");
             this.isClientInsertedEmitter.emit(true);
+            this._dataRefreshService.refresh();
             this.resetclientRequest();
           },
           error : (error)=>{

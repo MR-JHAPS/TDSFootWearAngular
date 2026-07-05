@@ -12,6 +12,7 @@ import { Subject } from 'rxjs';
 import { RtcNepaliDatePickerModule } from '@rishovt/angular-nepali-datepicker';
 import { NepaliDateFormat } from '../core/request/NepaliDateFormat';
 import { KharidApiService } from '../core/services/kharidApiService/kharid-api.service';
+import { DataRefreshService } from '../services/dataRefreshService/data-refresh.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ import { KharidApiService } from '../core/services/kharidApiService/kharid-api.s
 })
 export class UpdateClientModalComponent implements OnInit {
 
+  dataRefreshService = inject(DataRefreshService);
   _router = inject(Router);
   _modalService = inject(BsModalService);
   _clientApiService = inject(ClientApiService);
@@ -35,6 +37,7 @@ export class UpdateClientModalComponent implements OnInit {
 
   clientRequest : ClientRequest = new ClientRequest();
   clientResponse !: ClientResponse ;
+  dateInput : string = "";
 
   isLoading : boolean = false;
 
@@ -140,6 +143,7 @@ export class UpdateClientModalComponent implements OnInit {
         this.isLoading = false;
         this._toastrService.success("Client Updated Successfully.");
         this._modalService.hide();
+        this.dataRefreshService.refresh();
         this.onClientUpdate.next(true);
       },
       error : (error: any)=>{

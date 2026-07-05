@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from '../../pagination/pagination.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -25,6 +25,7 @@ import { SortBy } from '../../core/enum/sortBy';
 import { NepaliDateFormat } from '../../core/request/NepaliDateFormat';
 import { ApiResponseModel } from '../../core/response/ApiResponseModel';
 import { UpdateClientModalComponent } from '../../update-client-modal/update-client-modal.component';
+import { DataRefreshService } from '../../services/dataRefreshService/data-refresh.service';
 
 @Component({
   selector: 'app-client-monthly-table',
@@ -33,9 +34,10 @@ import { UpdateClientModalComponent } from '../../update-client-modal/update-cli
   templateUrl: './client-monthly-table.component.html',
   styleUrl: './client-monthly-table.component.css'
 })
-export class ClientMonthlyTableComponent {
+export class ClientMonthlyTableComponent implements OnInit {
 
 
+  dataRefreshService = inject(DataRefreshService);
   clientApiService = inject(ClientApiService);
   dateFormattedResponseService = inject(DateFormattedResponseService);
   clientResponseList!: Array<WrapperClientResponse>;
@@ -44,7 +46,7 @@ export class ClientMonthlyTableComponent {
 
   
 
-  private searchSubscription?: Subscription;
+  // private searchSubscription?: Subscription;
 
   _modalService = inject(BsModalService);
   bsModalRef ?: BsModalRef;
@@ -52,13 +54,13 @@ export class ClientMonthlyTableComponent {
   _toastrService = inject(ToastrService);
   currentContentSize  : number = 10;
 
-  searchQuery : string = "";
+  // searchQuery : string = "";
 
-  selectedSortDirection : string | SortDirection = SortDirection.ASCENDING;
-  sortDirections : dataModel[] = [
-    {key : "ascending" , icon: "fa-solid fa-arrow-down-a-z", value: SortDirection.ASCENDING },
-    {key : "descending" ,icon: "fa-solid fa-arrow-up-z-a", value: SortDirection.DESCENDING }
-  ];
+  // selectedSortDirection : string | SortDirection = SortDirection.ASCENDING;
+  // sortDirections : dataModel[] = [
+  //   {key : "ascending" , icon: "fa-solid fa-arrow-down-a-z", value: SortDirection.ASCENDING },
+  //   {key : "descending" ,icon: "fa-solid fa-arrow-up-z-a", value: SortDirection.DESCENDING }
+  // ];
 
   selectedSortBy : string | SortBy = SortBy.ID;
   sortBy : dataModel[] = [
@@ -81,6 +83,15 @@ export class ClientMonthlyTableComponent {
 
   ngOnInit(): void {
       this.getAllClients();
+
+      // this.dataRefreshService.refresh$.subscribe(()=>{
+      //   this.getAllClients();
+      // })
+
+      this.dataRefreshService.refresh$
+    .subscribe(() => {
+      this.getAllClients();
+    });
 
        /* this.searchControl.valueChanges.pipe(
       debounceTime(500),
@@ -153,53 +164,61 @@ export class ClientMonthlyTableComponent {
               this.isClientFound  = this.clientResponseList ? true  : false;
               this.paginationLinks = response.data.links;
               console.log(this.clientResponseList);
+              console.log("This is the pagination link received in monthly table component", this.paginationLinks);
+              console.log("This is the formatted getAllClientMonthly inside clientMonthlyTableComponent.");
+              console.log(this.clientResponseList);
               console.log(response);
               console.log(this.formattedWrappedClientResponseList);
             },
-      error : (error) => console.log("Error Getting All Clients"),
-      complete : () => console.log("All Clients Obtained Successfully") 
+      error : (error) => console.log("Error Getting All Monthly-Clients "),
+      complete : () => console.log("All Monthly-Clients Obtained Successfully") 
 
     })
   }
 
-  deleteClientById(id : number):void{
-    this.clientApiService.deleteClientById(id).subscribe({
-      next : (response : ApiResponseModel<string>) => {
-              console.log("Deleting Client By ID.");
-              this.getAllClients();
-            },
-      error : (error) => console.log("Error Deleting  Client"),
-      complete : () => console.log(" Client Deleted Successfully") 
-    })
+
+  formatAmountWithComma(amount : number | string){
+      return Number(amount).toLocaleString("en-US");
+     
   }
+//   deleteClientById(id : number):void{
+//     this.clientApiService.deleteClientById(id).subscribe({
+//       next : (response : ApiResponseModel<string>) => {
+//               console.log("Deleting Client By ID.");
+//               this.getAllClients();
+//             },
+//       error : (error) => console.log("Error Deleting  Client"),
+//       complete : () => console.log(" Client Deleted Successfully") 
+//     })
+//   }
 
 
-  /* -------------------SORTING (SortBy/Direction)------------------------ */
-  onSortClick(sortBy?: string, sortDirection ?: string) : void{
-    this.getAllClients(undefined, undefined, sortBy, sortDirection);
-  }
+//   /* -------------------SORTING (SortBy/Direction)------------------------ */
+//   onSortClick(sortBy?: string, sortDirection ?: string) : void{
+//     this.getAllClients(undefined, undefined, sortBy, sortDirection);
+//   }
 
 
 
 
 
-/* -------------------BUTTONS (INSERT/DELETE)------------------------ */
-  openUpdateModal(id : number) :void{
-    console.log("this is the selected client ID: " + id);
-    this.bsModalRef = this._modalService.show(UpdateClientModalComponent, {
-      initialState: {
-        openUpdateModal : true,
-        clientId : id,
-      }
-    })
-    //subscribing to the variable of the updateModal page.
-    this.bsModalRef.content.onClientUpdate.subscribe((updated:boolean)=>{
-      if(updated){
-        console.log("Client Updated, refreshing table ...");
-        this.getAllClients();
-      }
-    })
-  }
+// /* -------------------BUTTONS (INSERT/DELETE)------------------------ */
+//   openUpdateModal(id : number) :void{
+//     console.log("this is the selected client ID: " + id);
+//     this.bsModalRef = this._modalService.show(UpdateClientModalComponent, {
+//       initialState: {
+//         openUpdateModal : true,
+//         clientId : id,
+//       }
+//     })
+//     //subscribing to the variable of the updateModal page.
+//     this.bsModalRef.content.onClientUpdate.subscribe((updated:boolean)=>{
+//       if(updated){
+//         console.log("Client Updated, refreshing table ...");
+//         this.getAllClients();
+//       }
+//     })
+//   }
 
   //angular material dialog/modal is used here instead of bootstrap.
  /*  openDeleteClientModal(id : number){
@@ -224,6 +243,8 @@ export class ClientMonthlyTableComponent {
     this.clientApiService.getWrappedRequestedPage(requestedPageUrl).subscribe({
       next : (response : ApiResponseModelPaginated<WrapperClientResponse>) => {
               this.clientResponseList = response.data.content;
+              this.formattedWrappedClientResponseList = this.dateFormattedResponseService.formatWrappedClientResponse(this.clientResponseList);
+
               this.paginationLinks = response.data.links
             },
       error : (error) => console.log("Error Getting All Clients"),

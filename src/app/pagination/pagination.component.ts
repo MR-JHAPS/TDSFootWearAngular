@@ -32,6 +32,7 @@ export class PaginationComponent {
     changingRelToUrl(rel: string){
       console.log(`button clicked on the pagination on ${rel}`);
       const singleLink = this.pageLinks.find((link)=> link.rel===rel );
+      console.log("This is the pagination link I am requesting for : ",singleLink);
       if(!singleLink){
         // this.toastrService.info(`${rel} Page Not Found.`)
         console.log(`rel : ${rel} not found in the given pagination request param. paginationComponent.ts`);

@@ -21,8 +21,10 @@ export class ClientApiService {
     const url = `${this.apiEndpoints.baseUrl}${this.apiEndpoints.getAllClients}`;
     let size = pageSize ? pageSize : 10;
       let number = pageNumber ? pageNumber : 0;
-      let sortingBy = sortBy ? sortBy : "";
-      let sortDirection = direction ? direction : "";
+      // let sortingBy = sortBy ? sortBy : "";
+      // let sortDirection = direction ? direction : "";
+      let sortingBy = sortBy ? sortBy : "id";
+      let sortDirection = direction ? direction : "desc";
       const params = new HttpParams()
       .set("size", size)
         .set("page" , number)
@@ -33,7 +35,7 @@ export class ClientApiService {
 
 
   getAllClientsMonthly(pageNumber?: number, pageSize?: number, sortBy?:string, direction?: string) : Observable<ApiResponseModelPaginated<WrapperClientResponse>>{
-    const url = `${this.apiEndpoints.baseUrl}${this.apiEndpoints.getAllClients}`;
+    const url = `${this.apiEndpoints.baseUrl}${this.apiEndpoints.getAllClientsMonthly}`;
     let size = pageSize ? pageSize : 10;
       let number = pageNumber ? pageNumber : 0;
       let sortingBy = sortBy ? sortBy : "";

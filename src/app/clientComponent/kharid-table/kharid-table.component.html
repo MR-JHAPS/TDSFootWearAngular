@@ -99,9 +99,9 @@
                         <td >{{client.panNumber}}</td>
                         <td >{{client.billNumber}}</td>
                         <td >{{client.formattedDate}}</td>
-                        <td >{{client.amount}}</td>
-                        <td >{{client.vatTax}}</td>
-                        <td >{{client.total}}</td>
+                        <td >{{formatAmountWithComma(client.amount)}}</td>
+                        <td >{{formatAmountWithComma(client.vatTax)}}</td>
+                        <td >{{formatAmountWithComma(client.total)}}</td>
                         <td class="text-center">
                                 <div class="d-flex gap-3 justify-content-start">
                                     <button class="updateButton" (click)="openUpdateModal(client.id); $event.stopPropagation()">

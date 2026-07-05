@@ -25,6 +25,7 @@ import { UpdateClientModalComponent } from '../../update-client-modal/update-cli
 import { DeleteModalComponent } from '../../delete-modal/delete-modal.component';
 import { DateFormattedResponseService } from '../../core/services/dateFormattedService/date-formatted-response.service';
 import { FormattedClientResponse } from '../../core/response/formattedClientResponse';
+import { DataRefreshService } from '../../services/dataRefreshService/data-refresh.service';
 
 @Component({
   selector: 'app-kharid-table',
@@ -35,6 +36,7 @@ import { FormattedClientResponse } from '../../core/response/formattedClientResp
 })
 export class KharidTableComponent {
 
+  dataRefreshService = inject(DataRefreshService);
   kharidApiService = inject(KharidApiService);
   dateFormattedResponseService = inject(DateFormattedResponseService);
   formattedClientResponseList !: Array<FormattedClientResponse>;
@@ -75,6 +77,11 @@ export class KharidTableComponent {
   ngOnInit(): void {
       this.getAllKharid();
 
+      this.dataRefreshService.refresh$.subscribe(() => 
+      {
+        this.getAllKharid();
+      })
+
        this.searchControl.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged()
@@ -111,6 +118,7 @@ export class KharidTableComponent {
     })
   }
 
+  
 
   clearSearch() : void {
     this.searchControl.reset();
@@ -223,6 +231,11 @@ export class KharidTableComponent {
       complete : () => console.log("All Clients Obtained Successfully") 
 
     });
+  }
+
+  formatAmountWithComma(amount : number | string){
+      return Number(amount).toLocaleString("en-US");
+     
   }
 
 

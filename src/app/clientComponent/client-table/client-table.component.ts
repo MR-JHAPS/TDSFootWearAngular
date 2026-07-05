@@ -27,6 +27,7 @@ import { DateFormattedResponseService } from '../../core/services/dateFormattedS
 import { FormattedClientResponse } from '../../core/response/formattedClientResponse';
 import { WrapperClientResponse } from '../../core/response/WrapperClientResponse';
 import { FormattedWrapperClientResponse } from '../../core/response/FormattedWrapperClientResponse';
+import { DataRefreshService } from '../../services/dataRefreshService/data-refresh.service';
 
 export interface dataModel{
   key : string;
@@ -46,7 +47,7 @@ export interface dataModel{
 export class ClientTableComponent implements OnInit{
 
 
-
+  dataRefreshService = inject(DataRefreshService);
   clientApiService = inject(ClientApiService);
   dateFormattedResponseService = inject(DateFormattedResponseService);
   clientResponseList!: Array<ClientResponse>;
@@ -65,7 +66,7 @@ export class ClientTableComponent implements OnInit{
 
   searchQuery : string = "";
 
-  selectedSortDirection : string | SortDirection = SortDirection.ASCENDING;
+  selectedSortDirection : string | SortDirection = SortDirection.DESCENDING;
   sortDirections : dataModel[] = [
     {key : "ascending" , icon: "fa-solid fa-arrow-down-a-z", value: SortDirection.ASCENDING },
     {key : "descending" ,icon: "fa-solid fa-arrow-up-z-a", value: SortDirection.DESCENDING }
@@ -81,7 +82,6 @@ export class ClientTableComponent implements OnInit{
     {key: "Total" , value: SortBy.TOTAL }
   ]
 
-  // formattedYearList : Array<string> = new Array<string>();
 
   searchControl = new FormControl('');
   isClientFound : boolean = true;
@@ -93,6 +93,10 @@ export class ClientTableComponent implements OnInit{
   ngOnInit(): void {
       this.getAllClients();
 
+      this.dataRefreshService.refresh$.subscribe(() => 
+      {
+        this.getAllClients();
+      })
        this.searchControl.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged()
@@ -234,6 +238,7 @@ export class ClientTableComponent implements OnInit{
     this.clientApiService.getRequestedPage(requestedPageUrl).subscribe({
       next : (response : ApiResponseModelPaginated<ClientResponse>) => {
               this.clientResponseList = response.data.content;
+              this.formattedClientResponseList = this.dateFormattedResponseService.formatClientResponse(this.clientResponseList);
               this.paginationLinks = response.data.links
             },
       error : (error) => console.log("Error Getting All Clients"),

@@ -15,9 +15,9 @@
         <div class="leftContainer">
            
 
-            <div class="download">
+            <!-- <div class="download">
                 <button mat-raised-button color="primary" (click)="downloadExcelFile()">  <i class="fa-solid fa-download me-2"></i> Bikri Excel File</button>
-            </div>
+            </div> -->
         </div>
             
         <div class="rightContainer">
@@ -84,9 +84,9 @@
                 <th> VAT/TAX </th>
                 <th> TOTAL </th>
 
-                <th>
+                <!-- <th>
                     ACTION
-                </th>
+                </th> -->
             </tr>
         </thead>
 
@@ -100,37 +100,39 @@
                             <td >{{client.panNumber}}</td>
                             <td >{{client.billNumber}}</td>
                             <td >{{client.formattedDate}}</td>
-                            <td >{{client.amount}}</td>
-                            <td >{{client.vatTax}}</td>
-                            <td >{{client.total}}</td>
-                            <td class="text-center">
+                            <td >{{formatAmountWithComma(client.amount)}}</td>
+                            <td >{{formatAmountWithComma(client.vatTax)}}</td>
+                            <td >{{formatAmountWithComma(client.total)}}</td>
+                            <!-- <td class="text-center">
                                     <div class="d-flex gap-3 justify-content-start">
                                         <button class="updateButton" (click)="openUpdateModal(client.id); $event.stopPropagation()">
                                         <i class="fa-solid fa-pen" style="color: #ffffff;"></i>
                                         </button>
 
-                                        <!-- <button class="deleteButton" (click)="openDeleteClientModal(client.id)"> -->
-                                        <button class="deleteButton" (click)="null">
+                                        <button class="deleteButton" (click)="openDeleteClientModal(client.id)">
+                                        
                                         <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
                                         </button>
                                     </div> 
-                                </td>
+                                </td> -->
                         </tr>
                     }<!-- ends Nested-for -->
 
                  <tr >
-                    <td></td>
-                    <td colspan="6" align="right" color="green">
-                        <div  >
-                             Monthly Total
-                        </div>
-                    </td>
+                    <!-- <div class="monthlyTotalRow"> -->
+                        <td class="monthlyTotalRow" colspan="5"></td>
+                        <td colspan="2" align="center" class="monthlyTotalRow highlight" >
+                            <div style=" font-weight: 500;">
+                               Monthly Total 
+                            </div>
+                        </td>
 
-                    <td colspan="3">    
-                        <div >
-                            {{wrappedData.monthlyTotal}}
-                        </div>
-                    </td>
+                        <td colspan="1" align="left" class="monthlyTotalRow highlight">    
+                            <div style=" font-weight: 500;">
+                                {{formatAmountWithComma(wrappedData.monthlyTotal)}}
+                            </div>
+                        </td>
+                    <!-- </div> -->
                 </tr>
             } <!-- Ends outer-For -->
             </tbody>
