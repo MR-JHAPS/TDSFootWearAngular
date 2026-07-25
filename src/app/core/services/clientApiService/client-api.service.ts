@@ -36,7 +36,7 @@ export class ClientApiService {
 
   getAllClientsMonthly(pageNumber?: number, pageSize?: number, sortBy?:string, direction?: string) : Observable<ApiResponseModelPaginated<WrapperClientResponse>>{
     const url = `${this.apiEndpoints.baseUrl}${this.apiEndpoints.getAllClientsMonthly}`;
-    let size = pageSize ? pageSize : 10;
+    let size = pageSize ? pageSize : 100000;
       let number = pageNumber ? pageNumber : 0;
       let sortingBy = sortBy ? sortBy : "";
       let sortDirection = direction ? direction : "";

@@ -179,7 +179,8 @@ export class ClientTableComponent implements OnInit{
     this.clientApiService.deleteClientById(id).subscribe({
       next : (response : ApiResponseModel<string>) => {
               console.log("Deleting Client By ID.");
-              this.getAllClients();
+              // this.getAllClients();
+              this.dataRefreshService.refresh();
             },
       error : (error) => console.log("Error Deleting  Client"),
       complete : () => console.log(" Client Deleted Successfully") 
@@ -226,6 +227,8 @@ export class ClientTableComponent implements OnInit{
       if (confirmed) {
         console.log("Deleting client with ID:", id);
         this.deleteClientById(id);
+        this.dataRefreshService.refresh();
+        this._toastrService.warning("Deleted Bikri Successfully");
         
       }
     });

@@ -119,6 +119,8 @@ export class VatFormComponent {
             console.log("Inserting Kharid.")
             this._toastrService.success("Kharids Saved Successfully.");
             this.isKharidInsertedEmitter.emit(true);
+            this._dataRefreshService.refresh();
+
             this.resetclientRequest();
           },
           error : (error)=>{

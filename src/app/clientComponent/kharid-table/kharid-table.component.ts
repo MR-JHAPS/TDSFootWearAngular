@@ -53,7 +53,7 @@ export class KharidTableComponent {
 
   searchQuery : string = "";
 
-  selectedSortDirection : string | SortDirection = SortDirection.ASCENDING;
+  selectedSortDirection : string | SortDirection = SortDirection.DESCENDING;
   sortDirections : dataModel[] = [
     {key : "ascending" , icon: "fa-solid fa-arrow-down-a-z", value: SortDirection.ASCENDING },
     {key : "descending" ,icon: "fa-solid fa-arrow-up-z-a", value: SortDirection.DESCENDING }
@@ -63,7 +63,7 @@ export class KharidTableComponent {
   sortBy : dataModel[] = [
     {key: "ID" , value: SortBy.ID },
     {key: "Client Name" , value: SortBy.CLIENTNAME },
-    {key: "Date" , value: SortBy.DATE },
+    // {key: "Date" , value: SortBy.DATE },
     {key: "Amount" , value: SortBy.AMOUNT },
     {key: "Vat Amount" , value: SortBy.VATAMOUNT },
     {key: "Total" , value: SortBy.TOTAL }
@@ -166,7 +166,8 @@ export class KharidTableComponent {
     this.kharidApiService.deleteKharidById(id).subscribe({
       next : (response : ApiResponseModel<string>) => {
               console.log("Deleting Client By ID.");
-              this.getAllKharid();
+              // this.getAllKharid();
+              this.dataRefreshService.refresh();
             },
       error : (error) => console.log("Error Deleting  Client"),
       complete : () => console.log(" Client Deleted Successfully") 
@@ -211,8 +212,10 @@ export class KharidTableComponent {
     });
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        console.log("Deleting client with ID:", id);
+        console.log("Deleting Kharid-client with ID:", id);
         this.deleteClientById(id);
+        
+        this._toastrService.warning("Deleted Kharid Successfully");
         
       }
     });
@@ -225,9 +228,10 @@ export class KharidTableComponent {
     this.kharidApiService.getRequestedPage(requestedPageUrl).subscribe({
       next : (response : ApiResponseModelPaginated<ClientResponse>) => {
               this.clientResponseList = response.data.content;
+              this.formattedClientResponseList = this.dateFormattedResponseService.formatClientResponse(this.clientResponseList);
               this.paginationLinks = response.data.links
             },
-      error : (error) => console.log("Error Getting All Clients"),
+      error : (error) => console.log("Error Getting All Kharids"),
       complete : () => console.log("All Clients Obtained Successfully") 
 
     });

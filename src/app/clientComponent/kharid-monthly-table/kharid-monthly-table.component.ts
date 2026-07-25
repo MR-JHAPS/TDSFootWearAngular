@@ -76,6 +76,7 @@ export class KharidMonthlyTableComponent {
 
 
   ngOnInit(): void {
+    //this is the monthlyKharid method.
       this.getAllKharid();
 
       // if the data is inserted or updated it will check if the action is true/false to function accordingly.
